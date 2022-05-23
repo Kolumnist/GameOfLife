@@ -37,4 +37,14 @@ public class GameMenu extends JPanel {
             fensterMenu[0].add(fensterMenuItem[i]);
         }
     }
+
+    public static void main(String[] args) {
+        JFrame myFrame = new JFrame();
+        myFrame.setJMenuBar(menuBar);
+        JComponent contentPane = new GameMenu();
+        myFrame.setContentPane(contentPane);
+        myFrame.pack();
+        myFrame.setSize(500, 500);
+        myFrame.setVisible(true);
+    }
 }
