@@ -26,6 +26,7 @@ public class Gameboard extends JInternalFrame {
         }
         for(JPanel panels : board_cells)
         {
+            panels.addMouseListener();
             add(panels);
         }
 
@@ -33,5 +34,8 @@ public class Gameboard extends JInternalFrame {
         setVisible(true);
     }
 
+    public void changeCellStatus()
+    {
+    }
 
 }

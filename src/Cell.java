@@ -25,7 +25,6 @@ public class Cell extends JPanel {
 
     }
 
-    public void changeStatus(){};
     public int getX_pos() {
         return x_pos;
     }
@@ -33,4 +32,10 @@ public class Cell extends JPanel {
         return y_pos;
     }
 
+    public boolean[] getStatus() {
+        return status;
+    }
+    public void setStatus(boolean[] status) {
+        this.status = status;
+    }
 }
