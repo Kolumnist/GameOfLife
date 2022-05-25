@@ -1,14 +1,37 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame {
 
+    enum State
+    {
+        RUNNING, SETUP;
+    }
+
+    private State state;
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
     private Cell[] board_cells = new Cell[64]; //Wird allet nochmal geändert will erstmal was reinsetzen
 
     private static int title_nr;
+
+
+    class MouseListener extends MouseAdapter implements Serializable {
+        public void mouseReleased(MouseEvent e)
+        {
+            Cell c = (Cell) e.getComponent();
+            if(state == State.SETUP)
+            {
+               c.changeStatus();
+            }
+
+            c = null;
+        }
+    }
 
     public Gameboard()
     {
@@ -26,16 +49,11 @@ public class Gameboard extends JInternalFrame {
         }
         for(JPanel panels : board_cells)
         {
-            panels.addMouseListener();
+            panels.addMouseListener(new MouseListener());
             add(panels);
         }
 
         title_nr++;
         setVisible(true);
     }
-
-    public void changeCellStatus()
-    {
-    }
-
 }

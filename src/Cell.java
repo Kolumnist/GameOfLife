@@ -32,10 +32,16 @@ public class Cell extends JPanel {
         return y_pos;
     }
 
-    public boolean[] getStatus() {
-        return status;
+    public void changeStatus()
+    {
+        if(status[0] == true && status[1] == true)
+        {
+            status = new boolean[]{false, false};
+        }
+        else
+        {
+            status = new boolean[]{true, true};
+        }
     }
-    public void setStatus(boolean[] status) {
-        this.status = status;
-    }
+
 }
