@@ -64,6 +64,7 @@ public class GameMenu extends JPanel implements ActionListener {
         drückMich.setForeground(Color.white);
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
+        drückMich.addActionListener(this);
     }
 
     public static void main(String[] args) {
