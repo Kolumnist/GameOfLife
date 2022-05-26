@@ -1,9 +1,12 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class GameMenu extends JPanel {
 
     private static JDesktopPane myDesktop;
     static JFrame myFrame = new JFrame();
+    static JButton drückMich = new JButton("Create new board!");
+
 
   /*  static JMenuBar menuBar = new JMenuBar();
     static JMenu[] menu = {
@@ -51,7 +54,18 @@ public class GameMenu extends JPanel {
         myFrame.setVisible(true);
     }*/
 
+
+    public GameMenu() {
+        drückMich.setSize(200, 50);
+        drückMich.setFont(new Font("Arial", Font.BOLD, 18));
+        drückMich.setBackground(Color.BLUE);
+        drückMich.setForeground(Color.white);
+        drückMich.setLocation(650, 475);
+        drückMich.setVisible(true);
+    }
+
     public static void main(String[] args) {
+        new GameMenu();
         myDesktop = new JDesktopPane();
         myDesktop.setDesktopManager(new DefaultDesktopManager());
         myFrame.setContentPane(myDesktop);
@@ -60,6 +74,8 @@ public class GameMenu extends JPanel {
         myFrame.setLocationRelativeTo(null);
         myFrame.setTitle("Game of Life");
         myFrame.setVisible(true);
+        myFrame.add(drückMich);
         myDesktop.add(new Gameboard());
+
     }
 }
