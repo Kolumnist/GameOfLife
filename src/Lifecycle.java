@@ -1,7 +1,7 @@
 public class Lifecycle {
     Gameboard gameboard;
-    Cell[][] nextGrid;
-    Cell[][] gameGrid;
+    Cell[][] nextGrid = new Cell[12][12];
+    Cell[][] gameGrid = new Cell[12][12];
     int gridLenght; // how many colums the grid has
     int gridHeight; // how many rows the grid has
     int gameLenght; // how many colums the gameboard has
@@ -13,6 +13,9 @@ public class Lifecycle {
         gridLenght = gameboard.board_cells[0].length + 4;
         gameHeight = gameboard.board_cells.length;
         gameLenght = gameboard.board_cells[0].length;
+
+        nextGrid = new Cell[gridHeight][gridLenght];
+        gameGrid = new Cell[gridHeight][gridLenght];
 
         cleanGrid();
         copyCellsIntoGrid();
