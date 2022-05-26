@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameMenu extends JPanel {
+public class GameMenu extends JPanel implements ActionListener {
 
     private static JDesktopPane myDesktop;
     static JFrame myFrame = new JFrame();
@@ -75,7 +77,13 @@ public class GameMenu extends JPanel {
         myFrame.setTitle("Game of Life");
         myFrame.setVisible(true);
         myFrame.add(drückMich);
-        myDesktop.add(new Gameboard());
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("Create new board!")){
+            myDesktop.add(new Gameboard());
+        }
     }
 }
