@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Lifecycle {
     Gameboard gameboard;
     Cell[][] nextGrid = new Cell[12][12];
@@ -37,9 +39,11 @@ public class Lifecycle {
         for(int i = 0; i < gameHeight; i++){
             for(int j = 0; j < gameLenght; j++){
                 if(nextGrid[i+2][j+2].getAlive() == true){
-                    gameboard.board_cells[i][j].changeAlive();
-                }else{
-                    gameboard.board_cells[i][j].changeAlive();
+                    gameboard.board_cells[i][j].setAlive(true);
+                    gameboard.board_cells[i][j].setColor_dead(Color.BLUE);
+                }else if(!(nextGrid[i+2][j+2].getAlive())){
+                    gameboard.board_cells[i][j].setAlive(false);
+                    gameboard.board_cells[i][j].setColor_dead(Color.CYAN);
                 }
             }
         }
@@ -64,14 +68,16 @@ public class Lifecycle {
 
         //Counting the number of alive neighbours a living cell has
         for(int i = xPosition-1; i <= xPosition+1; i++){
-            for(int j = yPosition-1; j <= yPosition+1 ; j++){
-                if(!(i == xPosition && j == yPosition)){
-                    if(gameGrid[i][j].getAlive() == true){
-                        neighbour++;
-                    }
+            for(int j = yPosition-1; j <= yPosition+1; j++){
+                if(!(xPosition == i && yPosition ==j) && gameGrid[i][j].getAlive() == true){
+                    neighbour++;
+                    System.out.println("HEY ICH FUNKTIONIER AUCH!");
                 }
             }
         }
+
+        //Wenn eine lebende Zelle 2oder3 andere Lebende Zelle neben sich hat lebt sie
+        //Wenn eine tote Zelle 3 andere lebende Zellen neben sich hat lebt sie
 
         //Set the cell to be alive in the second grid
         if(gameGrid[xPosition][yPosition].getAlive() == true && (neighbour == 1 || neighbour == 2)){
@@ -83,8 +89,10 @@ public class Lifecycle {
 
 
     public Gameboard nextCycle(){
-        for(int i = 1; i < gameGrid.length-1; i++){
-            for(int j = 1; j < gameGrid[0].length-1; j++){
+
+        copyCellsIntoGrid();
+        for(int i = 2; i < gameGrid.length-1; i++){
+            for(int j = 2; j < gameGrid[0].length-1; j++){
                 revive(gameGrid[i][j]);
             }
         }
