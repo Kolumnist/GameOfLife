@@ -44,8 +44,8 @@ public class Lifecycle {
 
     //Creating nextGrid and gameGrid, which are bigger in lenght and height by 4, with dead cells
     public void cleanGrid(){
-        for(int i = 0; i <= gridHeight; i++){
-            for(int j = 0; j <= gridLenght; j++){
+        for(int i = 0; i < gridHeight; i++){
+            for(int j = 0; j < gridLenght; j++){
                 nextGrid[i][j] = new Cell(false, i, j);
                 gameGrid[i][j] = new Cell(false, i, j);
             }

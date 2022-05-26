@@ -4,13 +4,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
-public class Gameboard extends JInternalFrame {
+public class Gameboard extends JInternalFrame implements Runnable {
 
     enum State
     {
         RUNNING, SETUP, DRAWING
     }
 
+    private Lifecycle life;
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
@@ -59,6 +60,14 @@ public class Gameboard extends JInternalFrame {
         }
     }
 
+    public void run()
+    {
+        while(state == State.RUNNING)
+        {
+            life.nextCycle();
+        }
+    }
+
     public Gameboard()
     {
         super("Alive " + title_nr, true, true, true, true);
@@ -67,9 +76,15 @@ public class Gameboard extends JInternalFrame {
         setSize(640, 640);
         setLocation(50, 50);
 
+        life = new Lifecycle(this);
+
         // ***
 
-        modusMenuItem[0].addActionListener(e -> state = State.RUNNING);
+        modusMenuItem[0].addActionListener(e -> {
+            state = State.RUNNING;
+            Thread cycling = new Thread();
+            cycling.start();
+        });
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
 
@@ -93,9 +108,9 @@ public class Gameboard extends JInternalFrame {
         {
             for(int j = 0; j < 8; j++)
             {
-                board_cells[j][i] = new Cell(false, j, i, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
-                board_cells[j][i].addMouseListener(new MouseListener());
-                add(board_cells[j][i]);
+                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
+                board_cells[i][j].addMouseListener(new MouseListener());
+                add(board_cells[i][j]);
             }
         }
 
