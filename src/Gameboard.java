@@ -8,7 +8,7 @@ public class Gameboard extends JInternalFrame {
 
     enum State
     {
-        RUNNING, SETUP;
+        RUNNING, SETUP, DRAWING;
     }
 
     private State state;
@@ -21,15 +21,23 @@ public class Gameboard extends JInternalFrame {
 
 
     class MouseListener extends MouseAdapter implements Serializable {
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
         public void mouseReleased(MouseEvent e)
         {
-            Cell c = (Cell) e.getComponent();
             if(state == State.SETUP)
             {
-               c.changeStatus();
-            }
+                Cell c = (Cell)e.getComponent();
 
-            c = null;
+                try {
+                    c.changeAlive();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
 
@@ -44,7 +52,7 @@ public class Gameboard extends JInternalFrame {
         {
             for(int j = 0; j < 8; j++)
             {
-                board_cells[i*j] = new Cell(j, i, colors_alive[0], colors_dead[0]);
+                board_cells[i*j] = new Cell(false ,j, i, colors_alive[0], colors_dead[0]);
             }
         }
         for(JPanel panels : board_cells)
