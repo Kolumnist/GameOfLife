@@ -2,7 +2,10 @@ import javax.swing.*;
 
 public class GameMenu extends JPanel {
 
-    static JMenuBar menuBar = new JMenuBar();
+    private static JDesktopPane myDesktop;
+    static JFrame myFrame = new JFrame();
+
+  /*  static JMenuBar menuBar = new JMenuBar();
     static JMenu[] menu = {
             new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
     JMenuItem[] modusMenuItem = {
@@ -46,5 +49,17 @@ public class GameMenu extends JPanel {
         myFrame.pack();
         myFrame.setSize(500, 500);
         myFrame.setVisible(true);
+    }*/
+
+    public static void main(String[] args) {
+        myDesktop = new JDesktopPane();
+        myDesktop.setDesktopManager(new DefaultDesktopManager());
+        myFrame.setContentPane(myDesktop);
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setSize(1500, 1000);
+        myFrame.setLocationRelativeTo(null);
+        myFrame.setTitle("Game of Life");
+        myFrame.setVisible(true);
+        myDesktop.add(new Gameboard());
     }
 }
