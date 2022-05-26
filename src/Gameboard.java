@@ -38,11 +38,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if(state == State.DRAWING)
             {
                 Cell c = (Cell)e.getComponent();
-                try {
-                    c.changeAlive(0);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                c.changeAlive();
             }
         }
 
@@ -51,27 +47,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if(state == State.SETUP)
             {
                 Cell c = (Cell)e.getComponent();
-                try {
-                    c.changeAlive(0);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                c.changeAlive();
             }
         }
-    }
-
-    public void run()
-    {
-        while(state == State.RUNNING)
-        {
-            life.nextCycle();
-            try {
-                Thread.sleep(t_wait);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
     public Gameboard()
@@ -97,7 +75,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
         modusMenuItem[0].addActionListener(e -> {
             state = State.RUNNING;
-            new Thread().start();
+            new Thread(this).start();
         });
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
@@ -122,4 +100,19 @@ public class Gameboard extends JInternalFrame implements Runnable {
         show();
         setVisible(true);
     }
+
+    public void run()
+    {
+        while(state == State.RUNNING)
+        {
+            System.out.println("Hallo ich funktioniere!");
+            life.nextCycle();
+            try {
+                Thread.sleep(t_wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

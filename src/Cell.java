@@ -61,7 +61,7 @@ public class Cell extends JPanel {
         this.color_dead = c_dead;
     }
 
-    public void changeAlive(int t_wait) throws InterruptedException {
+    public void changeAlive() {
         if(alive == true)
         {
             setBackground(color_dead);
@@ -72,7 +72,6 @@ public class Cell extends JPanel {
             setBackground(color_alive);
             alive = true;
         }
-        Thread.sleep(t_wait);
     }
 
 }

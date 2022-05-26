@@ -37,9 +37,9 @@ public class Lifecycle {
         for(int i = 0; i < gameHeight; i++){
             for(int j = 0; j < gameLenght; j++){
                 if(nextGrid[i+2][j+2].getAlive() == true){
-                    gameboard.board_cells[i][j].setAlive(true);
+                    gameboard.board_cells[i][j].changeAlive();
                 }else{
-                    gameboard.board_cells[i][j].setAlive(false);
+                    gameboard.board_cells[i][j].changeAlive();
                 }
             }
         }
