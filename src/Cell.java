@@ -8,8 +8,19 @@ public class Cell extends JPanel {
     private int x_pos, y_pos;
     private Color color_alive, color_dead;
 
+    public Cell(boolean alive, int x_pos, int y_pos)
+    {
+        this.alive = alive;
+        this.x_pos = x_pos;
+        this.y_pos = y_pos;
+
+        color_alive = Color.BLACK;
+        color_dead = Color.WHITE;
+    }
+
     public Cell(boolean alive, int x_pos, int y_pos, Color color_alive, Color color_dead)
     {
+        this.alive = alive;
         this.x_pos = x_pos;
         this.y_pos = y_pos;
         this.color_alive = color_alive;

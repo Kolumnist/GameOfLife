@@ -13,11 +13,11 @@ public class Gameboard extends JInternalFrame {
         RUNNING, SETUP, DRAWING;
     }
 
-    private State state = State.SETUP;
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
-    private Cell[] board_cells = new Cell[64]; //Wird allet nochmal geändert will erstmal was reinsetzen
+    public State state = State.SETUP;
+    public Cell[][] board_cells = new Cell[8][8]; //Wird allet nochmal geändert will erstmal was reinsetzen
 
     private int t_wait = 2000;
 
@@ -67,7 +67,7 @@ public class Gameboard extends JInternalFrame {
         setBackground(Color.BLACK);
 
         // ***
-        
+
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
         for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
@@ -95,13 +95,10 @@ public class Gameboard extends JInternalFrame {
         {
             for(int j = 0; j < 8; j++)
             {
-                board_cells[i*j] = new Cell(false ,j, i, colors_alive[0], colors_dead[0]);
+                board_cells[j][i] = new Cell(false, j, i, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
+                board_cells[j][i].addMouseListener(new MouseListener());
+                add(board_cells[j][i]);
             }
-        }
-        for(JPanel panels : board_cells)
-        {
-            panels.addMouseListener(new MouseListener());
-            add(panels);
         }
 
         title_nr++;
