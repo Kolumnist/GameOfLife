@@ -65,7 +65,13 @@ public class Gameboard extends JInternalFrame implements Runnable {
         while(state == State.RUNNING)
         {
             life.nextCycle();
+            try {
+                Thread.sleep(t_wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public Gameboard()
@@ -76,14 +82,22 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setSize(640, 640);
         setLocation(50, 50);
 
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
+                board_cells[i][j].addMouseListener(new MouseListener());
+                add(board_cells[i][j]);
+            }
+        }
         life = new Lifecycle(this);
 
-        // ***
+        //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
         modusMenuItem[0].addActionListener(e -> {
             state = State.RUNNING;
-            Thread cycling = new Thread();
-            cycling.start();
+            new Thread().start();
         });
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
@@ -102,17 +116,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[i]);
 
-        //***
-
-        for(int i = 0; i < 8; i++)
-        {
-            for(int j = 0; j < 8; j++)
-            {
-                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
-                board_cells[i][j].addMouseListener(new MouseListener());
-                add(board_cells[i][j]);
-            }
-        }
+        //endregion
 
         title_nr++;
         show();
