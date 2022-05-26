@@ -66,7 +66,9 @@ public class Gameboard extends JInternalFrame {
         setLayout(new GridLayout(8, 8));
         setBackground(Color.BLACK);
 
-        //setJMenuBar();
+        // ***
+        
+        setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
         for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
         for (int i = 0; i < geschwindigkeitMenuItem.length; i++) menu[1].add(geschwindigkeitMenuItem[i]);
