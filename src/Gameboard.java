@@ -10,7 +10,7 @@ public class Gameboard extends JInternalFrame {
 
     enum State
     {
-        RUNNING, SETUP, DRAWING;
+        RUNNING, SETUP, DRAWING
     }
 
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
