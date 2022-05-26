@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
@@ -21,6 +19,7 @@ public class Gameboard extends JInternalFrame {
     public int t_wait = 2000;
 
     private static int title_nr;
+    private int width, height;
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};

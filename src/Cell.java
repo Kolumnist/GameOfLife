@@ -35,6 +35,31 @@ public class Cell extends JPanel {
     public int getY_pos() {
         return y_pos;
     }
+    public boolean getAlive()
+    {
+        return alive;
+    }
+    public Color getColor_alive()
+    {
+        return color_alive;
+    }
+    public Color getColor_dead()
+    {
+        return color_dead;
+    }
+//---//
+    public void setAlive(boolean alive)
+    {
+        this.alive = alive;
+    }
+    public void setColor_alive(Color c_alive)
+    {
+        this.color_alive = c_alive;
+    }
+    public void setColor_dead(Color c_dead)
+    {
+        this.color_dead = c_dead;
+    }
 
     public void changeAlive(int t_wait) throws InterruptedException {
         if(alive == true)
