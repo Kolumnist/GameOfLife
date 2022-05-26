@@ -46,8 +46,8 @@ public class Lifecycle {
     public void cleanGrid(){
         for(int i = 0; i <= gridHeight; i++){
             for(int j = 0; j <= gridLenght; j++){
-                nextGrid[i][j] = new Cell(i, j, false);
-                gameGrid[i][j] = new Cell(i, j, false);
+                nextGrid[i][j] = new Cell(false, i, j);
+                gameGrid[i][j] = new Cell(false, i, j);
             }
         }
 
@@ -56,8 +56,8 @@ public class Lifecycle {
     //Counting how many neighbours one cell has and setting its living status
     public void revive(Cell pCell){
         int neighbour = -1;
-        int xPosition = pCell.xPos; // x = row
-        int yPosition = pCell.yPos; // y = column
+        int xPosition = pCell.getX_pos(); // x = row
+        int yPosition = pCell.getY_pos(); // y = column
 
         //Counting the number of alive neighbours a living cell has
         for(int i = xPosition-1; i <= xPosition+1; i++){
