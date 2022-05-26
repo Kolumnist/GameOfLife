@@ -74,13 +74,11 @@ public class Gameboard extends JInternalFrame {
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
 
-        geschwindigkeitMenuItem[0].addActionListener(e -> {
-            t_wait = 2000;
-            if (geschwindigkeitMenuItem[1].equals(e.getSource()) && t_wait > 100) t_wait -= 100;
-            else if (geschwindigkeitMenuItem[2].equals(e.getSource()) && t_wait > 10000) t_wait += 100;
-            else if (geschwindigkeitMenuItem[3].equals(e.getSource()) && t_wait > 100) t_wait -= 1000;
-            else if (geschwindigkeitMenuItem[4].equals(e.getSource()) && t_wait > 10000) t_wait += 1000;
-        });
+        geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
+        geschwindigkeitMenuItem[1].addActionListener(e -> {if(t_wait > 100) t_wait -= 100;});
+        geschwindigkeitMenuItem[2].addActionListener(e -> {if(t_wait < 10000) t_wait += 100;});
+        geschwindigkeitMenuItem[3].addActionListener(e -> {if(t_wait > 1000) t_wait -= 1000;});
+        geschwindigkeitMenuItem[4].addActionListener(e -> {if(t_wait < 10000) t_wait += 1000;});
 
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
@@ -103,8 +101,6 @@ public class Gameboard extends JInternalFrame {
         }
 
         title_nr++;
-
-
         show();
         setVisible(true);
     }
