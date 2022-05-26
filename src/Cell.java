@@ -25,7 +25,7 @@ public class Cell extends JPanel {
         return y_pos;
     }
 
-    public void changeAlive() throws InterruptedException {
+    public void changeAlive(int t_wait) throws InterruptedException {
         if(alive == true)
         {
             setBackground(color_dead);
@@ -36,7 +36,7 @@ public class Cell extends JPanel {
             setBackground(color_alive);
             alive = true;
         }
-        Thread.sleep(1000);
+        Thread.sleep(t_wait);
     }
 
 }
