@@ -18,8 +18,7 @@ public class Gameboard extends JInternalFrame {
 
     public State state = State.SETUP;
     public Cell[][] board_cells = new Cell[8][8]; //Wird allet nochmal geändert will erstmal was reinsetzen
-
-    private int t_wait = 2000;
+    public int t_wait = 2000;
 
     private static int title_nr;
 
@@ -34,12 +33,13 @@ public class Gameboard extends JInternalFrame {
             figurenMenuItem = {new JMenuItem("Gleiter")};
 
     class MouseListener extends MouseAdapter implements Serializable {
+
         public void mouseEntered(MouseEvent e) {
             if(state == State.DRAWING)
             {
                 Cell c = (Cell)e.getComponent();
                 try {
-                    c.changeAlive(t_wait);
+                    c.changeAlive(0);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -52,7 +52,7 @@ public class Gameboard extends JInternalFrame {
             {
                 Cell c = (Cell)e.getComponent();
                 try {
-                    c.changeAlive(t_wait);
+                    c.changeAlive(0);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -62,11 +62,25 @@ public class Gameboard extends JInternalFrame {
 
     public Gameboard()
     {
-        setTitle("Alive " + title_nr);
+        super("Alive " + title_nr, true, true, true, true);
         setLayout(new GridLayout(8, 8));
         setBackground(Color.BLACK);
+        setSize(640, 640);
+        setLocation(50, 50);
 
         // ***
+
+        modusMenuItem[0].addActionListener(e -> state = State.RUNNING);
+        modusMenuItem[1].addActionListener(e -> state = State.SETUP);
+        modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
+
+        geschwindigkeitMenuItem[0].addActionListener(e -> {
+            t_wait = 2000;
+            if (geschwindigkeitMenuItem[1].equals(e.getSource()) && t_wait > 100) t_wait -= 100;
+            else if (geschwindigkeitMenuItem[2].equals(e.getSource()) && t_wait > 10000) t_wait += 100;
+            else if (geschwindigkeitMenuItem[3].equals(e.getSource()) && t_wait > 100) t_wait -= 1000;
+            else if (geschwindigkeitMenuItem[4].equals(e.getSource()) && t_wait > 10000) t_wait += 1000;
+        });
 
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
@@ -75,19 +89,6 @@ public class Gameboard extends JInternalFrame {
         for (int i = 0; i < fensterMenu.length; i++) menu[2].add(fensterMenu[i]);
         for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[i]);
-
-        menu[0].addActionListener(e -> {
-            if (modusMenuItem[0].equals(e.getSource())) state = State.RUNNING;
-            else if (modusMenuItem[1].equals(e.getSource())) state = State.SETUP;
-            else if (modusMenuItem[2].equals(e.getSource())) state = State.DRAWING;
-        });
-        menu[1].addActionListener(e -> {
-            if(geschwindigkeitMenuItem[0].equals(e.getSource())) t_wait = 2000;
-            else if (geschwindigkeitMenuItem[1].equals(e.getSource()) && t_wait > 100) t_wait -= 100;
-            else if (geschwindigkeitMenuItem[2].equals(e.getSource()) && t_wait > 10000) t_wait += 100;
-            else if (geschwindigkeitMenuItem[3].equals(e.getSource()) && t_wait > 100) t_wait -= 1000;
-            else if (geschwindigkeitMenuItem[4].equals(e.getSource()) && t_wait > 10000) t_wait += 1000;
-        });
 
         //***
 
@@ -102,6 +103,9 @@ public class Gameboard extends JInternalFrame {
         }
 
         title_nr++;
+
+
+        show();
         setVisible(true);
     }
 }
