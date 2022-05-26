@@ -19,7 +19,7 @@ public class Gameboard extends JInternalFrame {
 
     private Cell[] board_cells = new Cell[64]; //Wird allet nochmal geändert will erstmal was reinsetzen
 
-    private int t_wait;
+    private int t_wait = 2000;
 
     private static int title_nr;
 
@@ -28,7 +28,8 @@ public class Gameboard extends JInternalFrame {
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
-            geschwindigkeitMenuItem = {new JMenuItem(""), new JMenuItem(""), new JMenuItem("")},
+            geschwindigkeitMenuItem = {new JMenuItem("Standard"), new JMenuItem("Schneller(100)"), new JMenuItem("Langsamer(100)"),
+                    new JMenuItem("Schneller(1000)"), new JMenuItem("Langsamer(1000)")},
             fensterMenuItem = {new JMenuItem("tot"), new JMenuItem("lebendig"), new JMenuItem("wechseln")},
             figurenMenuItem = {new JMenuItem("Gleiter")};
 
@@ -38,7 +39,7 @@ public class Gameboard extends JInternalFrame {
             {
                 Cell c = (Cell)e.getComponent();
                 try {
-                    c.changeAlive();
+                    c.changeAlive(t_wait);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -51,7 +52,7 @@ public class Gameboard extends JInternalFrame {
             {
                 Cell c = (Cell)e.getComponent();
                 try {
-                    c.changeAlive();
+                    c.changeAlive(t_wait);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -82,7 +83,7 @@ public class Gameboard extends JInternalFrame {
         menu[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(geschwindigkeitMenuItem[0].equals(e.getSource())) t_wait--;
+                if(geschwindigkeitMenuItem[0].equals(e.getSource())) t_wait -= 100;
             }
         });
 
@@ -104,6 +105,4 @@ public class Gameboard extends JInternalFrame {
         title_nr++;
         setVisible(true);
     }
-
-
 }
