@@ -6,12 +6,13 @@ import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame implements Runnable {
 
-    enum State
-    {
+    enum State {
         RUNNING, SETUP, DRAWING
     }
 
     private Lifecycle life;
+    private ColorPanel colorPanel;
+    private boolean Kartoffelsalat = false;
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
@@ -25,46 +26,45 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
+    private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             geschwindigkeitMenuItem = {new JMenuItem("Standard"), new JMenuItem("Schneller(100)"), new JMenuItem("Langsamer(100)"),
                     new JMenuItem("Schneller(1000)"), new JMenuItem("Langsamer(1000)")},
-            fensterMenuItem = {new JMenuItem("tot"), new JMenuItem("lebendig"), new JMenuItem("wechseln")},
+            fensterMenuItem = {new JMenuItem("wechseln"),new JMenuItem(""),new JMenuItem("")},
             figurenMenuItem = {new JMenuItem("Gleiter")};
+    //totMenuItem = {new JMenuItem("")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
         public void mouseEntered(MouseEvent e) {
-            if(state == State.DRAWING)
-            {
-                Cell c = (Cell)e.getComponent();
+            if (state == State.DRAWING) {
+                Cell c = (Cell) e.getComponent();
                 c.changeAlive();
+            } else if (Kartoffelsalat == true) {
+                new ColorPanel();
             }
         }
 
-        public void mouseReleased(MouseEvent e)
-        {
-            if(state == State.SETUP)
-            {
-                Cell c = (Cell)e.getComponent();
+        public void mouseReleased(MouseEvent e) {
+            if (state == State.SETUP) {
+                Cell c = (Cell) e.getComponent();
                 c.changeAlive();
             }
         }
     }
 
-    public Gameboard()
-    {
+    public Gameboard() {
         super("Alive " + title_nr, true, true, true, true);
-        setLayout(new GridLayout(8, 8));
-        setBackground(Color.BLACK);
+        setLayout(new GridLayout(8, 8, 1, 1));
+        setBackground(Color.white);
         setSize(640, 640);
         setLocation(50, 50);
 
-        for(int i = 0; i < 8; i++)
-        {
-            for(int j = 0; j < 8; j++)
-            {
-                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);
+                ;
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
             }
@@ -81,18 +81,32 @@ public class Gameboard extends JInternalFrame implements Runnable {
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
 
         geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
-        geschwindigkeitMenuItem[1].addActionListener(e -> {if(t_wait > 100) t_wait -= 100;});
-        geschwindigkeitMenuItem[2].addActionListener(e -> {if(t_wait < 10000) t_wait += 100;});
-        geschwindigkeitMenuItem[3].addActionListener(e -> {if(t_wait > 1000) t_wait -= 1000;});
-        geschwindigkeitMenuItem[4].addActionListener(e -> {if(t_wait < 10000) t_wait += 1000;});
+        geschwindigkeitMenuItem[1].addActionListener(e -> {
+            if (t_wait > 100) t_wait -= 100;
+        });
+        geschwindigkeitMenuItem[2].addActionListener(e -> {
+            if (t_wait < 10000) t_wait += 100;
+        });
+        geschwindigkeitMenuItem[3].addActionListener(e -> {
+            if (t_wait > 1000) t_wait -= 1000;
+        });
+        geschwindigkeitMenuItem[4].addActionListener(e -> {
+            if (t_wait < 10000) t_wait += 1000;
+        });
+
+        fensterMenu[0].addActionListener(e -> Kartoffelsalat = true);
+        // fensterMenu[1].addActionListener(e -> state = State.RUNNING);
 
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
         for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
         for (int i = 0; i < geschwindigkeitMenuItem.length; i++) menu[1].add(geschwindigkeitMenuItem[i]);
         for (int i = 0; i < fensterMenu.length; i++) menu[2].add(fensterMenu[i]);
+        for (int i = 0; i < farbenMenu.length; i++) fensterMenu[0].add(farbenMenu[i]);
         for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
-        for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[i]);
+        for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
+        for (int i = 0; i < fensterMenuItem.length; i++) farbenMenu[0].add(fensterMenuItem[1]);
+        for (int i = 0; i < fensterMenuItem.length; i++) farbenMenu[1].add(fensterMenuItem[2]);
 
         //endregion
 
@@ -101,10 +115,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setVisible(true);
     }
 
-    public void run()
-    {
-        while(state == State.RUNNING)
-        {
+    public void run() {
+        while (state == State.RUNNING) {
             System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
