@@ -25,10 +25,11 @@ public class ColorPanel extends JPanel {
             colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
-            setSize(100,100);
+            setSize(100, 100);
             setVisible(true);
         }
     }
+}
  /*
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -40,5 +41,5 @@ public class ColorPanel extends JPanel {
         f.pack();
         f.setSize(100, 100);
         f.setVisible(true);
-    }*/
-}
+    }
+}*/

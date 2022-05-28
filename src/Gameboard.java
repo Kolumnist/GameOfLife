@@ -31,7 +31,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             geschwindigkeitMenuItem = {new JMenuItem("Standard"), new JMenuItem("Schneller(100)"), new JMenuItem("Langsamer(100)"),
                     new JMenuItem("Schneller(1000)"), new JMenuItem("Langsamer(1000)")},
-            fensterMenuItem = {new JMenuItem("wechseln"),new JMenuItem(""),new JMenuItem("")},
+            fensterMenuItem = {new JMenuItem("wechseln")},
             figurenMenuItem = {new JMenuItem("Gleiter")};
     //totMenuItem = {new JMenuItem("")};
 
@@ -103,10 +103,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < geschwindigkeitMenuItem.length; i++) menu[1].add(geschwindigkeitMenuItem[i]);
         for (int i = 0; i < fensterMenu.length; i++) menu[2].add(fensterMenu[i]);
         for (int i = 0; i < farbenMenu.length; i++) fensterMenu[0].add(farbenMenu[i]);
+        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[i].add(new ColorPanel());
         for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
-        for (int i = 0; i < fensterMenuItem.length; i++) farbenMenu[0].add(fensterMenuItem[1]);
-        for (int i = 0; i < fensterMenuItem.length; i++) farbenMenu[1].add(fensterMenuItem[2]);
+
+
 
         //endregion
 
