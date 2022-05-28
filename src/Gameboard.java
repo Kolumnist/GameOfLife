@@ -41,18 +41,16 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (state == State.DRAWING) {
                 Cell c = (Cell) e.getComponent();
                 c.changeAlive();
-            } else if (Kartoffelsalat == true) {
-                new ColorPanel();
             }
         }
 
-        public void mouseReleased(MouseEvent e) {
-            if (state == State.SETUP) {
-                Cell c = (Cell) e.getComponent();
-                c.changeAlive();
+            public void mouseReleased (MouseEvent e){
+                if (state == State.SETUP) {
+                    Cell c = (Cell) e.getComponent();
+                    c.changeAlive();
+                }
             }
         }
-    }
 
     public Gameboard() {
         super("Alive " + title_nr, true, true, true, true);
@@ -94,8 +92,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (t_wait < 10000) t_wait += 1000;
         });
 
-        fensterMenu[0].addActionListener(e -> Kartoffelsalat = true);
-        // fensterMenu[1].addActionListener(e -> state = State.RUNNING);
 
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);

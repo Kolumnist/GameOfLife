@@ -13,7 +13,8 @@ public class ColorPanel extends JPanel {
 
     ColorPanel() {
         int i;
-        for (i = 0; i <= colorButtons.length - 1; i++) {
+        for (i = 0; i < colorButtons.length; i++) {
+            colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[0].setBackground(colors[0]);
             colorButtons[1].setBackground(colors[1]);
             colorButtons[2].setBackground(colors[2]);
@@ -22,10 +23,10 @@ public class ColorPanel extends JPanel {
             colorButtons[5].setBackground(colors[5]);
             colorButtons[6].setBackground(colors[6]);
             colorButtons[7].setBackground(colors[7]);
-            colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
             setSize(100, 100);
+            setBackground(Color.white);
             setVisible(true);
         }
     }

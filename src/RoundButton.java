@@ -39,7 +39,7 @@ public class RoundButton extends JButton {
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
 
-            g2d.setColor(getModel().isArmed() ? Color.orange: getBackground());
+            g2d.setColor(getModel().isArmed() ? Color.white: getBackground());
             g2d.fill(new RoundRectangle2D.Double(0, 0, getWidth()-1, getHeight()-1, arc, arc));
             super.paintComponent(g);
         }
