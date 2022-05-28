@@ -11,8 +11,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
     }
 
     private Lifecycle life;
-    private ColorPanel colorPanel;
-    private boolean Kartoffelsalat = false;
     private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
