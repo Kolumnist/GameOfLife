@@ -52,7 +52,10 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     public Gameboard() {
         super("Alive " + title_nr, true, true, true, true);
-        setLayout(new GridLayout(8, 8, 1, 1));
+        this.width = 8;
+        this.height = 8;
+
+        setLayout(new GridLayout(width, height, 1, 1));
         setBackground(Color.white);
         setSize(640, 640);
         setLocation(50, 50);
