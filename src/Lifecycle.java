@@ -40,10 +40,10 @@ public class Lifecycle {
             for(int j = 0; j < gameLenght; j++){
                 if(nextGrid[i+2][j+2].getAlive() == true){
                     gameboard.board_cells[i][j].setAlive(true);
-                    gameboard.board_cells[i][j].setColor_dead(Color.BLUE);
+                    gameboard.board_cells[i][j].setBackground(gameboard.board_cells[i][j].getColor_alive());
                 }else if(!(nextGrid[i+2][j+2].getAlive())){
                     gameboard.board_cells[i][j].setAlive(false);
-                    gameboard.board_cells[i][j].setColor_dead(Color.CYAN);
+                    gameboard.board_cells[i][j].setBackground(gameboard.board_cells[i][j].getColor_dead());
                 }
             }
         }

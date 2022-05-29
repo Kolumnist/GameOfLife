@@ -60,7 +60,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);
-                ;
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
             }
@@ -90,7 +89,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (t_wait < 10000) t_wait += 1000;
         });
 
-
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
         for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
@@ -100,8 +98,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[i].add(new ColorPanel());
         for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
-
-
 
         //endregion
 
