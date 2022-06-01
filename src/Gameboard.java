@@ -8,18 +8,21 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     enum State {
         RUNNING, SETUP, DRAWING
-    }
+    } //The different States:
+    //-> Running state means the gameboard is currently going through its lifecycle
+    //-> Setup state means that with a single mouseclick a cell comes to life or dies
+    //-> Drawing state is like Setup but with the mouse only entering a cell
+
+    public State state = State.SETUP; //This displays the current state of the gameboard
+    public Cell[][] board_cells = new Cell[8][8]; //The Gameboard is made out of these Cell
+    public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private Lifecycle life;
-    private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
-    private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
-
-    public State state = State.SETUP;
-    public Cell[][] board_cells = new Cell[8][8]; //Wird allet nochmal geändert will erstmal was reinsetzen
-    public int t_wait = 2000;
+    //private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
+    //private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
     private static int title_nr;
-    private int width, height;
+    private int width, height; //is the width and height of the gameboard(in cells)
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
@@ -35,6 +38,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     class MouseListener extends MouseAdapter implements Serializable {
 
+        /*Only used when state is DRAWING. Handles the drawing*/
         public void mouseEntered(MouseEvent e) {
             if (state == State.DRAWING) {
                 Cell c = (Cell) e.getComponent();
@@ -42,26 +46,28 @@ public class Gameboard extends JInternalFrame implements Runnable {
             }
         }
 
-            public void mouseReleased (MouseEvent e){
-                if (state == State.SETUP) {
-                    Cell c = (Cell) e.getComponent();
-                    c.changeAlive();
-                }
+        /*Only used when state is SETUP. Handles the clicking and setting of Cells*/
+        public void mouseReleased (MouseEvent e){
+            if (state == State.SETUP) {
+                Cell c = (Cell) e.getComponent();
+                c.changeAlive();
             }
         }
+    }
 
-    public Gameboard() {
+    public Gameboard(int width, int height) {
         super("Alive " + title_nr, true, true, true, true);
-        this.width = 8;
-        this.height = 8;
+        this.width = width;
+        this.height = height;
 
-        setLayout(new GridLayout(width, height, 1, 1));
+        setLayout(new GridLayout(this.width, this.height, 1, 1));
         setBackground(Color.white);
         setSize(640, 640);
         setLocation(50, 50);
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        /*board_cells get created for real with mouselistener*/
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
                 board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
@@ -109,6 +115,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setVisible(true);
     }
 
+    /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/
     public void run() {
         while (state == State.RUNNING) {
             System.out.println("Hallo ich funktioniere!");
