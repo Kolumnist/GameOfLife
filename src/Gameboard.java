@@ -34,10 +34,10 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"), new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
+    private JMenu[] figurenMenu = {new JMenu("Gleiter"), new JMenu("D"),new JMenu("nochNeSache"),new JMenu("Oktagon"), new JMenu("nommel was"), new JMenu("nochIrWas")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
-            figurenMenuItem = {new JMenuItem("Gleiter")},
             fensterLeerenMenuItem = {new JMenuItem("leere")};
 
     class MouseListener extends MouseAdapter implements Serializable {
