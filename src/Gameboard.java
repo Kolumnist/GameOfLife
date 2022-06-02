@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame implements Runnable {
 
-    enum Figure{
+    enum Figure {
         NOTHING, GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP,
         PENTADECATHLON
     }
@@ -31,14 +31,20 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
-    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"),new JMenu("Fenster leeren")};
+    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"), new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
-    private JMenu[] figurenMenu = {new JMenu("Gleiter"), new JMenu("D"),new JMenu("nochNeSache"),new JMenu("Oktagon"), new JMenu("nommel was"), new JMenu("nochIrWas")};
+    private JMenu[] figurenMenu = {new JMenu("Gleiter"), new JMenu("D"), new JMenu("nochNeSache"), new JMenu("Oktagon"), new JMenu("nommel was"), new JMenu("nochIrWas")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
-            fensterLeerenMenuItem = {new JMenuItem("leere")};
+            fensterLeerenMenuItem = {new JMenuItem("leere")},
+            figurenMenuItem0 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenMenuItem1 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenMenuItem2 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenMenuItem3 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenMenuItem4 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenMenuItem5 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -53,51 +59,40 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
         /*Only used when state is SETUP.
         Handles the clicking and setting of Cells*/
-        public void mouseReleased (MouseEvent e){
+        public void mouseReleased(MouseEvent e) {
             if (state == State.SETUP) {
                 if (figure == Figure.NOTHING) {
                     Cell c = (Cell) e.getComponent();
                     c.switchAlive();
-                }
-                else if (figure == Figure.GLIDER) {
+                } else if (figure == Figure.GLIDER) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
                     hcotf.glider((Cell) e.getComponent());
                     figure = Figure.NOTHING;
-                }
-                else if (figure == Figure.LIGHT_SPACESHIP)
-                {
+                } else if (figure == Figure.LIGHT_SPACESHIP) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.lightSpaceship((Cell)e.getComponent());
-                }
-                else if (figure == Figure.PENTADECATHLON)
-                {
+                    hcotf.lightSpaceship((Cell) e.getComponent());
+                } else if (figure == Figure.PENTADECATHLON) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.pentadecathlon((Cell)e.getComponent());
-                }
-                else if(figure == Figure.MIDDLE_SPACESHIP)
-                {
+                    hcotf.pentadecathlon((Cell) e.getComponent());
+                } else if (figure == Figure.MIDDLE_SPACESHIP) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.middleSpaceship((Cell)e.getComponent());
-                }
-                else if(figure == Figure.HEAVY_SPACESHIP)
-                {
+                    hcotf.middleSpaceship((Cell) e.getComponent());
+                } else if (figure == Figure.HEAVY_SPACESHIP) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.heavySpaceship((Cell)e.getComponent());
+                    hcotf.heavySpaceship((Cell) e.getComponent());
                 }
             }
         }
     }
 
-    private void littleHelper(Color new_color, boolean alive)
-    {
-        if(!alive) {
+    private void littleHelper(Color new_color, boolean alive) {
+        if (!alive) {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].setColor_dead(new_color);
                 }
             }
-        }
-        else {
+        } else {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].setColor_alive(new_color);
@@ -143,9 +138,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
 
         //region ActionListener for the color management and switching
-        for(int i = 0; i<8; i++)
-        {
-            c_p_alive.colorButtons[i].addActionListener(e-> {
+        for (int i = 0; i < 8; i++) {
+            c_p_alive.colorButtons[i].addActionListener(e -> {
                 if (e.getSource().equals(c_p_alive.colorButtons[0])) {
                     littleHelper(c_p_alive.colors[0], true);
                 } else if (e.getSource().equals(c_p_alive.colorButtons[1])) {
@@ -165,7 +159,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 }
             });
 
-            c_p_dead.colorButtons[i].addActionListener(e-> {
+            c_p_dead.colorButtons[i].addActionListener(e -> {
                 if (e.getSource().equals(c_p_dead.colorButtons[0])) {
                     littleHelper(c_p_dead.colors[0], false);
                 } else if (e.getSource().equals(c_p_dead.colorButtons[1])) {
@@ -186,7 +180,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             });
         }
 
-        fensterMenuItem[0].addActionListener(e-> {
+        fensterMenuItem[0].addActionListener(e -> {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].switchColor();
@@ -211,12 +205,19 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
         for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
         for (JMenu jMenu : farbenMenu) jMenu.add(c_p_alive);
+        for (JMenu jMenu : figurenMenu) menu[3].add(jMenu);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_p_dead);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
-        for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem0) figurenMenu[0].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem1) figurenMenu[1].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem2) figurenMenu[2].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem3) figurenMenu[3].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem4) figurenMenu[4].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenMenuItem5) figurenMenu[5].add(jMenuItem);
+
         fensterMenu[0].add(fensterMenuItem[0]);
         menu[4].add(fensterLeerenMenuItem[0]);
-        
+
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(menu[4]);
         //endregion
