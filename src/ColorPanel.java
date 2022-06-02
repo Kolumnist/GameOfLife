@@ -16,6 +16,7 @@ public class ColorPanel extends JPanel {
             Color.pink, Color.red, Color.yellow};
 
     ColorPanel(Gameboard gameboard) {
+        this.gameboard = gameboard;
         for (int i = 0; i < colorButtons.length; i++) {
             this.colorButtons[i] = colorButtons[i];
             colorButtons[i] = new RoundButton("", 360, true);
@@ -41,21 +42,21 @@ public class ColorPanel extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals(colorButtons[0])) {
-                setColor_dead(Color.blue);
+                gameboard.changeColors(Color.blue);
             } else if (e.getActionCommand().equals(colorButtons[1])) {
-                setColor_dead(Color.cyan);
+                gameboard.changeColors(Color.cyan);
             } else if (e.getActionCommand().equals(colorButtons[2])) {
-                setColor_dead(Color.green);
+                gameboard.changeColors(Color.green);
             } else if (e.getActionCommand().equals(colorButtons[3])) {
-                setColor_dead(Color.magenta);
+                gameboard.changeColors(Color.magenta);
             } else if (e.getActionCommand().equals(colorButtons[4])) {
-                setColor_dead(Color.orange);
+                gameboard.changeColors(Color.orange);
             } else if (e.getActionCommand().equals(colorButtons[5])) {
-                setColor_dead(Color.pink);
+                gameboard.changeColors(Color.pink);
             } else if (e.getActionCommand().equals(colorButtons[6])) {
-                setColor_dead(Color.red);
+                gameboard.changeColors(Color.red);
             } else if (e.getActionCommand().equals(colorButtons[7])) {
-                setColor_dead(Color.yellow);
+                gameboard.changeColors(Color.yellow);
             }
         }
     }
@@ -63,21 +64,21 @@ public class ColorPanel extends JPanel {
     class MyAliveColors implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals(colorButtons[0])) {
-                setColor_alive(Color.blue);
+                gameboard.changeColors(Color.blue);
             } else if (e.getActionCommand().equals(colorButtons[1])) {
-                setColor_alive(Color.cyan);
+                gameboard.changeColors(Color.cyan);
             } else if (e.getActionCommand().equals(colorButtons[2])) {
-                setColor_alive(Color.green);
+                gameboard.changeColors(Color.green);
             } else if (e.getActionCommand().equals(colorButtons[3])) {
-                setColor_alive(Color.magenta);
+                gameboard.changeColors(Color.magenta);
             } else if (e.getActionCommand().equals(colorButtons[4])) {
-                setColor_alive(Color.orange);
+                gameboard.changeColors(Color.orange);
             } else if (e.getActionCommand().equals(colorButtons[5])) {
-                setColor_alive(Color.pink);
+                gameboard.changeColors(Color.pink);
             } else if (e.getActionCommand().equals(colorButtons[6])) {
-                setColor_alive(Color.red);
+                gameboard.changeColors(Color.red);
             } else if (e.getActionCommand().equals(colorButtons[7])) {
-                setColor_alive(Color.yellow);
+                gameboard.changeColors(Color.yellow);
             }
         }
     }
