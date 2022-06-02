@@ -184,7 +184,7 @@ public class HardCodingofTheFigures {
         try{ board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
     }
 
-    public void heavySpaceship(Cell c){
+    public void heavySpaceshipRight(Cell c){
         try{ board_cells[c.getX_pos()-2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
         try{ board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
         try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
@@ -198,5 +198,53 @@ public class HardCodingofTheFigures {
         try{ board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
         try{ board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
         try{ board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+    }
+
+    public void heavySpaceshipLeft(Cell c){
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+    }
+
+    public void heavySpaceshipDown(Cell c){
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()-3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+    }
+
+    public void heavySpaceshipUp(Cell c){
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
     }
 }
