@@ -23,6 +23,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final Lifecycle life;
     private final ColorPanelAlive c_p_alive;
     private final ColorPanelDead c_p_dead;
+    private final Slider slider;
+
 
     private State state = State.SETUP; //This displays the current state of the gameboard
     private Figure figure = Figure.GLIDER;
@@ -106,6 +108,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         life = new Lifecycle(this);
         c_p_alive = new ColorPanelAlive(this);
         c_p_dead = new ColorPanelDead(this);
+        slider = new Slider(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
@@ -119,7 +122,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         //endregion
 
         //region ActionListener for the speed of the generations
-        geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
+     /*   geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
         geschwindigkeitMenuItem[1].addActionListener(e -> {
             if (t_wait > 100) t_wait -= 100;
         });
@@ -131,7 +134,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         });
         geschwindigkeitMenuItem[4].addActionListener(e -> {
             if (t_wait < 10000) t_wait += 1000;
-        });
+        });*/
         //endregion
 
         //region ActionListener for the color management and switching
@@ -190,7 +193,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setJMenuBar(menuBar);
         for (JMenu jMenu : menu) menuBar.add(jMenu);
         for (JMenuItem jMenuItem : modusMenuItem) menu[0].add(jMenuItem);
-        for (JMenuItem jMenuItem : geschwindigkeitMenuItem) menu[1].add(jMenuItem);
+        for (int i = 0; i < menu.length; i++) menu[1].add(slider);
         for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
         for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
         for (JMenu jMenu : farbenMenu) jMenu.add(c_p_alive);
