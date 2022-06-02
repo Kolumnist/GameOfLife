@@ -54,7 +54,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             figurenItemGleiter = {new JMenuItem("down"), new JMenuItem("right"), new JMenuItem("up"), new JMenuItem("left")},
             figurenItemLSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
             figurenItemMSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
-            figurenItemHSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")};
+            figurenItemHSpaceship = {new JMenuItem("down"), new JMenuItem("right"), new JMenuItem("up"), new JMenuItem("left")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -229,7 +229,10 @@ public class Gameboard extends JInternalFrame implements Runnable {
         figurenItemLSpaceship[1].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP_UP);
 
         figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP);
-        figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP);
+        figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_DOWN);
+        figurenItemHSpaceship[1].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_RIGHT);
+        figurenItemHSpaceship[2].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_UP);
+        figurenItemHSpaceship[3].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_LEFT);
         //endregion
 
         setJMenuBar(menuBar);
