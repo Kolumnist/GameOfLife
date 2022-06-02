@@ -16,7 +16,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,
         GLIDER_DOWN, GLIDER_RIGHT, GLIDER_UP, GLIDER_LEFT,
         LIGHT_SPACESHIP_DOWN, LIGHT_SPACESHIP_UP,
-        MIDDLE_SPACESHIP, HEAVY_SPACESHIP
+        MIDDLE_SPACESHIP, HEAVY_SPACESHIP_DOWN, HEAVY_SPACESHIP_RIGHT, HEAVY_SPACESHIP_UP, HEAVY_SPACESHIP_LEFT
     }
 
     enum State {//The different States the gameboard can be in:
@@ -89,7 +89,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
                     case LIGHT_SPACESHIP_UP: hardFig.lightSpaceshipUp(c); figure = Figure.NOTHING; break;
 
                     case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); figure = Figure.NOTHING; break;
-                    case HEAVY_SPACESHIP: hardFig.heavySpaceship(c); figure = Figure.NOTHING; break;
+
+                    case HEAVY_SPACESHIP_DOWN: hardFig.heavySpaceshipDown(c); figure = Figure.NOTHING; break;
+                    case HEAVY_SPACESHIP_RIGHT: hardFig.heavySpaceshipRight(c); figure = Figure.NOTHING; break;
+                    case HEAVY_SPACESHIP_UP: hardFig.heavySpaceshipUp(c); figure = Figure.NOTHING; break;
+                    case HEAVY_SPACESHIP_LEFT: hardFig.heavySpaceshipLeft(c); figure = Figure.NOTHING; break;
                     default : figure = Figure.NOTHING; break;
                 }
             }
