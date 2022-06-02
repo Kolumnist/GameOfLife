@@ -1,3 +1,8 @@
+/**
+ * @author Michel Jouaux, Collin Hoss, Lara Mangi
+ * @Matrikelnummer: 212455 [mjouaux], 212848 [choss], 212467 [lmangi]
+ * @version 1 02.06.2022
+ */
 public class HardCodingofTheFigures {
 
     private Cell[][] board_cells;
