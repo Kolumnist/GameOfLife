@@ -16,7 +16,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,
         GLIDER_DOWN, GLIDER_RIGHT, GLIDER_UP, GLIDER_LEFT,
         LIGHT_SPACESHIP_DOWN, LIGHT_SPACESHIP_UP,
-        MIDDLE_SPACESHIP, HEAVY_SPACESHIP_DOWN, HEAVY_SPACESHIP_RIGHT, HEAVY_SPACESHIP_UP, HEAVY_SPACESHIP_LEFT
+        MIDDLE_SPACESHIP_DOWN, MIDDLE_SPACESHIP_UP,
+        HEAVY_SPACESHIP_RIGHT, HEAVY_SPACESHIP_LEFT
     }
 
     enum State {//The different States the gameboard can be in:
@@ -49,12 +50,12 @@ public class Gameboard extends JInternalFrame implements Runnable {
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
             fensterLeerenMenuItem = {new JMenuItem("leere")},
-            figurenItemOktagon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemOktagon = {new JMenuItem("go")},
             figurenItemPentadecathlon = {new JMenuItem("horizontal"), new JMenuItem("vertikal")},
             figurenItemGleiter = {new JMenuItem("down"), new JMenuItem("right"), new JMenuItem("up"), new JMenuItem("left")},
             figurenItemLSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
             figurenItemMSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
-            figurenItemHSpaceship = {new JMenuItem("down"), new JMenuItem("right"), new JMenuItem("up"), new JMenuItem("left")};
+            figurenItemHSpaceship = {new JMenuItem("down"), new JMenuItem("up")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -88,11 +89,10 @@ public class Gameboard extends JInternalFrame implements Runnable {
                     case LIGHT_SPACESHIP_DOWN: hardFig.lightSpaceshipDown(c); figure = Figure.NOTHING; break;
                     case LIGHT_SPACESHIP_UP: hardFig.lightSpaceshipUp(c); figure = Figure.NOTHING; break;
 
-                    case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); figure = Figure.NOTHING; break;
+                    case MIDDLE_SPACESHIP_DOWN: hardFig.middleSpaceshipDown(c); figure = Figure.NOTHING; break;
+                    case MIDDLE_SPACESHIP_UP: hardFig.middleSpaceshipUp(c); figure = Figure.NOTHING; break;
 
-                    case HEAVY_SPACESHIP_DOWN: hardFig.heavySpaceshipDown(c); figure = Figure.NOTHING; break;
                     case HEAVY_SPACESHIP_RIGHT: hardFig.heavySpaceshipRight(c); figure = Figure.NOTHING; break;
-                    case HEAVY_SPACESHIP_UP: hardFig.heavySpaceshipUp(c); figure = Figure.NOTHING; break;
                     case HEAVY_SPACESHIP_LEFT: hardFig.heavySpaceshipLeft(c); figure = Figure.NOTHING; break;
                     default : figure = Figure.NOTHING; break;
                 }
@@ -228,11 +228,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
         figurenItemLSpaceship[0].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP_DOWN);
         figurenItemLSpaceship[1].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP_UP);
 
-        figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP);
-        figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_DOWN);
-        figurenItemHSpaceship[1].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_RIGHT);
-        figurenItemHSpaceship[2].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_UP);
-        figurenItemHSpaceship[3].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_LEFT);
+        figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP_DOWN);
+        figurenItemMSpaceship[1].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP_UP);
+
+        figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_RIGHT);
+        figurenItemHSpaceship[1].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_LEFT);
         //endregion
 
         setJMenuBar(menuBar);
