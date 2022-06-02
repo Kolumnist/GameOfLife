@@ -15,7 +15,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         NOTHING,
         OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,
         GLIDER_DOWN, GLIDER_RIGHT, GLIDER_UP, GLIDER_LEFT,
-        LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP
+        LIGHT_SPACESHIP_DOWN, LIGHT_SPACESHIP_UP,
+        MIDDLE_SPACESHIP, HEAVY_SPACESHIP
     }
 
     enum State {//The different States the gameboard can be in:
@@ -51,8 +52,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
             figurenItemOktagon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
             figurenItemPentadecathlon = {new JMenuItem("horizontal"), new JMenuItem("vertikal")},
             figurenItemGleiter = {new JMenuItem("down"), new JMenuItem("right"), new JMenuItem("up"), new JMenuItem("left")},
-            figurenItemLSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenItemMSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemLSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
+            figurenItemMSpaceship = {new JMenuItem("down"), new JMenuItem("up")},
             figurenItemHSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")};
 
     class MouseListener extends MouseAdapter implements Serializable {
@@ -84,7 +85,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
                     case GLIDER_UP: hardFig.gliderUp(c); figure = Figure.NOTHING; break;
                     case GLIDER_LEFT: hardFig.gliderLeft(c); figure = Figure.NOTHING; break;
 
-                    case LIGHT_SPACESHIP: hardFig.lightSpaceship(c); figure = Figure.NOTHING; break;
+                    case LIGHT_SPACESHIP_DOWN: hardFig.lightSpaceshipDown(c); figure = Figure.NOTHING; break;
+                    case LIGHT_SPACESHIP_UP: hardFig.lightSpaceshipUp(c); figure = Figure.NOTHING; break;
+
                     case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); figure = Figure.NOTHING; break;
                     case HEAVY_SPACESHIP: hardFig.heavySpaceship(c); figure = Figure.NOTHING; break;
                     default : figure = Figure.NOTHING; break;
@@ -218,7 +221,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
         figurenItemGleiter[2].addActionListener(e -> figure = Figure.GLIDER_UP);
         figurenItemGleiter[3].addActionListener(e -> figure = Figure.GLIDER_LEFT);
 
-        figurenItemLSpaceship[0].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP);
+        figurenItemLSpaceship[0].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP_DOWN);
+        figurenItemLSpaceship[1].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP_UP);
+
         figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP);
         figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP);
         //endregion
