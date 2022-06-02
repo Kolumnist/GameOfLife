@@ -61,8 +61,19 @@ public class Cell extends JPanel {
         this.color_dead = c_dead;
     }
 
-    public void changeAlive() {
-        if(alive == true)
+    public void switchColor()
+    {
+        Color new_dead = color_alive;
+
+        color_alive = color_dead;
+        color_dead = new_dead;
+
+        if(alive)setBackground(color_alive);
+        else setBackground(color_dead);
+    }
+
+    public void switchAlive() {
+        if(alive)
         {
             setBackground(color_dead);
             alive = false;
