@@ -1,5 +1,8 @@
+import org.w3c.dom.ranges.Range;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.NumericShaper;
 
 public class GameMenu extends JPanel {
 
@@ -16,12 +19,11 @@ public class GameMenu extends JPanel {
         drückMich.setForeground(Color.white);
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
-        // drückMich.addActionListener(this);
-        gridList = new JComboBox(new String[]{"8x8", "16x16", "32x32", "64x64", "128x128"});
-        gridList.setSelectedIndex(4);
+        gridList = new JComboBox(new String[]{"8x8", "16x16", "32x32", "64x64", "128x128 WARNUNG! Schlecht für den PC!"});
+        gridList.setSelectedIndex(0);
         gridList.setVisible(true);
-        gridList.setSize(200, 20);
-        gridList.setLocation(650, 525);
+        gridList.setSize(250, 20);
+        gridList.setLocation(625, 525);
         drückMich.addActionListener(e -> {
             switch (gridList.getSelectedIndex()) {
                 case 0:
