@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame implements Runnable {
 
-    enum Figure{
+    enum Figure {
         NOTHING, GLIDER, LIGHT_SPACESHIP, PENTADECATHLON
     }
 
@@ -31,13 +31,14 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
-    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"),new JMenu("Fenster leeren")};
+    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"), new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
-            figurenMenuItem = {new JMenuItem("Gleiter")};
+            figurenMenuItem = {new JMenuItem("Gleiter")},
+            fensterLeerenMenuItem = {new JMenuItem("leere")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -52,41 +53,34 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
         /*Only used when state is SETUP.
         Handles the clicking and setting of Cells*/
-        public void mouseReleased (MouseEvent e){
+        public void mouseReleased(MouseEvent e) {
             if (state == State.SETUP) {
                 if (figure == Figure.NOTHING) {
                     Cell c = (Cell) e.getComponent();
                     c.switchAlive();
-                }
-                else if (figure == Figure.GLIDER) {
+                } else if (figure == Figure.GLIDER) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
                     hcotf.glider((Cell) e.getComponent());
                     figure = Figure.NOTHING;
-                }
-                else if (figure == Figure.LIGHT_SPACESHIP)
-                {
+                } else if (figure == Figure.LIGHT_SPACESHIP) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.lightSpaceship((Cell)e.getComponent());
-                }
-                else if (figure == Figure.PENTADECATHLON)
-                {
+                    hcotf.lightSpaceship((Cell) e.getComponent());
+                } else if (figure == Figure.PENTADECATHLON) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.pentadecathlon((Cell)e.getComponent());
+                    hcotf.pentadecathlon((Cell) e.getComponent());
                 }
             }
         }
     }
 
-    private void littleHelper(Color new_color, boolean alive)
-    {
-        if(!alive) {
+    private void littleHelper(Color new_color, boolean alive) {
+        if (!alive) {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].setColor_dead(new_color);
                 }
             }
-        }
-        else {
+        } else {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].setColor_alive(new_color);
@@ -132,9 +126,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
 
         //region ActionListener for the color management and switching
-        for(int i = 0; i<8; i++)
-        {
-            c_p_alive.colorButtons[i].addActionListener(e-> {
+        for (int i = 0; i < 8; i++) {
+            c_p_alive.colorButtons[i].addActionListener(e -> {
                 if (e.getSource().equals(c_p_alive.colorButtons[0])) {
                     littleHelper(c_p_alive.colors[0], true);
                 } else if (e.getSource().equals(c_p_alive.colorButtons[1])) {
@@ -154,7 +147,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 }
             });
 
-            c_p_dead.colorButtons[i].addActionListener(e-> {
+            c_p_dead.colorButtons[i].addActionListener(e -> {
                 if (e.getSource().equals(c_p_dead.colorButtons[0])) {
                     littleHelper(c_p_dead.colors[0], false);
                 } else if (e.getSource().equals(c_p_dead.colorButtons[1])) {
@@ -175,10 +168,19 @@ public class Gameboard extends JInternalFrame implements Runnable {
             });
         }
 
-        fensterMenuItem[0].addActionListener(e-> {
+        fensterMenuItem[0].addActionListener(e -> {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].switchColor();
+                }
+            }
+        });
+
+        fensterLeerenMenuItem[0].addActionListener(e -> {
+            for (Cell[] board_cell : board_cells) {
+                for (int j = 0; j < board_cells[0].length; j++) {
+                    board_cell[j].setAlive(false);
+                    board_cell[j].setBackground(board_cell[j].getColor_dead());
                 }
             }
         });
@@ -195,6 +197,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         fensterMenu[0].add(fensterMenuItem[0]);
+        menu[4].add(fensterLeerenMenuItem[0]);
 
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(menu[4]);
@@ -211,7 +214,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
-                Thread.sleep(10000-t_wait);
+                Thread.sleep(10000 - t_wait);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
