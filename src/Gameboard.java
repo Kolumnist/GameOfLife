@@ -27,7 +27,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     }
 
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
-    public int t_wait = 1000; //the t_wait = thread_wait is used for the speed of the lifecycle
+    public int t_wait = 1500; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
     private final HardCodingofTheFigures hardFig;

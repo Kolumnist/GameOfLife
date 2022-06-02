@@ -19,8 +19,8 @@ public class Slider extends JPanel implements ChangeListener {
     public Slider(Gameboard gameboard) {
         this.gameboard = gameboard;
         JSlider mySlider = new JSlider(SwingConstants.HORIZONTAL, 0, 2000, gameboard.t_wait);
-        mySlider.setMajorTickSpacing(250);
-        mySlider.setMinorTickSpacing(100);
+        mySlider.setMajorTickSpacing(200);
+        mySlider.setMinorTickSpacing(50);
         mySlider.setPaintTicks(true);
         mySlider.setPaintLabels(true);
         mySlider.setPreferredSize(new Dimension(500, 100));
