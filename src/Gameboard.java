@@ -31,13 +31,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
-    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
+    private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"),new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
-            geschwindigkeitMenuItem = {new JMenuItem("Standard"), new JMenuItem("Schneller(100)"), new JMenuItem("Langsamer(100)"),
-                    new JMenuItem("Schneller(1000)"), new JMenuItem("Langsamer(1000)")},
             fensterMenuItem = {new JMenuItem("wechseln")},
             figurenMenuItem = {new JMenuItem("Gleiter")};
 
@@ -132,21 +130,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
         //endregion
 
-        //region ActionListener for the speed of the generations
-     /*   geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
-        geschwindigkeitMenuItem[1].addActionListener(e -> {
-            if (t_wait > 100) t_wait -= 100;
-        });
-        geschwindigkeitMenuItem[2].addActionListener(e -> {
-            if (t_wait < 10000) t_wait += 100;
-        });
-        geschwindigkeitMenuItem[3].addActionListener(e -> {
-            if (t_wait > 0) t_wait -= 1000;
-        });
-        geschwindigkeitMenuItem[4].addActionListener(e -> {
-            if (t_wait < 10000) t_wait += 1000;
-        });*/
-        //endregion
 
         //region ActionListener for the color management and switching
         for(int i = 0; i<8; i++)
@@ -213,6 +196,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         fensterMenu[0].add(fensterMenuItem[0]);
 
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(menu[4]);
         //endregion
 
         title_nr++;
