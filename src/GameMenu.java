@@ -17,7 +17,7 @@ public class GameMenu extends JPanel {
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
         // drückMich.addActionListener(this);
-        gridList = new JComboBox(new String[]{"8x8", "16x16", "24x24", "32x32", "64x64"});
+        gridList = new JComboBox(new String[]{"8x8", "16x16", "32x32", "64x64", "128x128"});
         gridList.setSelectedIndex(4);
         gridList.setVisible(true);
         gridList.setSize(200, 20);
@@ -33,15 +33,15 @@ public class GameMenu extends JPanel {
                     myDesktop.add(gameboard);
                     break;
                 case 2:
-                    gameboard = new Gameboard(24, 24);
-                    myDesktop.add(gameboard);
-                    break;
-                case 3:
                     gameboard = new Gameboard(32, 32);
                     myDesktop.add(gameboard);
                     break;
-                case 4:
+                case 3:
                     gameboard = new Gameboard(64, 64);
+                    myDesktop.add(gameboard);
+                    break;
+                case 4:
+                    gameboard = new Gameboard(128, 128);
                     myDesktop.add(gameboard);
                     break;
                 default:
