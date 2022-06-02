@@ -22,7 +22,7 @@ public class GameMenu extends JPanel {
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
         gridList = new JComboBox(new String[]{"8x8", "16x16", "32x32", "64x64", "128x128 WARNUNG! Schlecht für den PC!"});
-        gridList.setSelectedIndex(0);
+        gridList.setSelectedIndex(2);
         gridList.setVisible(true);
         gridList.setSize(250, 20);
         gridList.setLocation(625, 525);
