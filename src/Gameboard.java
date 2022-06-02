@@ -18,11 +18,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
     public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
+    private final ColorPanel c_panel;
     //private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     //private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
     private static int title_nr;
-    private final int width, height; //is the width and height of the gameboard(in cells)
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
@@ -57,25 +57,25 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     public Gameboard(int width, int height) {
         super("Alive " + title_nr, true, true, true, true);
-        this.width = width;
-        this.height = height;
+        //is the width and height of the gameboard(in cells)
 
         board_cells = new Cell[width][height];
-        life = new Lifecycle(this);
 
-        setLayout(new GridLayout(this.width, this.height, 1, 1));
+        setLayout(new GridLayout(width, height, 1, 1));
         setBackground(Color.white);
         setSize(640, 640);
         setLocation(50, 50);
 
         /*board_cells get created for real with mouselistener*/
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
             }
         }
+        life = new Lifecycle(this);
+        c_panel = new ColorPanel(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
@@ -106,7 +106,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenuItem jMenuItem : geschwindigkeitMenuItem) menu[1].add(jMenuItem);
         for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
         for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
-        for (JMenu jMenu : farbenMenu) jMenu.add(new ColorPanel(this));
+        for (JMenu jMenu : farbenMenu) jMenu.add(c_panel);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
 
@@ -115,6 +115,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
         title_nr++;
         show();
         setVisible(true);
+    }
+
+    public void changeColors(Color new_color, boolean alive)
+    {
+
     }
 
     /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/

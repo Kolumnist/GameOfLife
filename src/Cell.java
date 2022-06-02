@@ -55,7 +55,6 @@ public class Cell extends JPanel {
     public void setColor_alive(Color c_alive)
     {
         this.color_alive = c_alive;
-
     }
     public void setColor_dead(Color c_dead)
     {
