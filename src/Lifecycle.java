@@ -138,6 +138,7 @@ public class Lifecycle {
         cleanGrid();
     }
 
+    //region Just a toString for debuging purpose
     public void toString(Cell[][] pCell) {
         for (Cell[] one : pCell) {
             for (Cell two : one) {
@@ -150,4 +151,5 @@ public class Lifecycle {
             System.out.println("");
         }
     }
+    //endregion
 }
