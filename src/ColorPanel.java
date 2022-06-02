@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ColorPanel extends JPanel {
-    
+
  private Gameboard gameboard;
 
     JButton[] colorButtons = {new JButton(""), new JButton(""),

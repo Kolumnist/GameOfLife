@@ -91,10 +91,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (t_wait < 10000) t_wait += 1000;
         });
 
-        fensterMenuItem[0].addActionListener(e -> e.getActionCommand().equals("tot") {
-            myDeadColors.actionPerformed();
-        } );
-
         setJMenuBar(menuBar);
         for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
         for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
