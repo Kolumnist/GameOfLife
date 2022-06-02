@@ -29,7 +29,6 @@ public class ColorPanelDead extends JPanel {
             colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
-            colorButtons[i].addActionListener((ActionListener) this);
             setSize(100, 100);
             setBackground(Color.white);
             setVisible(true);

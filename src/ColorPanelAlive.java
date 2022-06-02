@@ -22,11 +22,9 @@ public class ColorPanelAlive extends JPanel {
             colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
-            colorButtons[i].addActionListener((ActionListener) this);
             setSize(100, 100);
             setBackground(Color.white);
             setVisible(true);
-            colorButtons[i].addActionListener((ActionListener) this);
         }
         colorButtons[0].setBackground(colors[0]);
         colorButtons[1].setBackground(colors[1]);
@@ -37,7 +35,7 @@ public class ColorPanelAlive extends JPanel {
         colorButtons[6].setBackground(colors[6]);
         colorButtons[7].setBackground(colors[7]);
     }
-
+/*
     class MyDeadColors implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -81,7 +79,7 @@ public class ColorPanelAlive extends JPanel {
                 gameboard.changeColors(Color.yellow);
             }
         }
-    }
+    }*/
 }
 
 

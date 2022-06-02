@@ -18,11 +18,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
     public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
-    private final ColorPanelAlive c_panel_alive;
-    private final ColorPanelDead c_panel_dead;
-
-    //private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
-    //private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
+    private final ColorPanelAlive c_p_alive;
+    private final ColorPanelDead c_p_dead;
 
     private static int title_nr;
 
@@ -44,7 +41,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         public void mouseEntered(MouseEvent e) {
             if (state == State.DRAWING) {
                 Cell c = (Cell) e.getComponent();
-                c.changeAlive();
+                c.switchAlive();
             }
         }
 
@@ -52,7 +49,26 @@ public class Gameboard extends JInternalFrame implements Runnable {
         public void mouseReleased (MouseEvent e){
             if (state == State.SETUP) {
                 Cell c = (Cell) e.getComponent();
-                c.changeAlive();
+                c.switchAlive();
+            }
+        }
+    }
+
+    private void littleHelper(Color new_color, boolean alive)
+    {
+        if(!alive)
+        {
+            for (int i = 0; i < board_cells.length; i++) {
+                for (int j = 0; j < board_cells[0].length; j++) {
+                    board_cells[i][j].setColor_dead(new_color);
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < board_cells.length; i++) {
+                for (int j = 0; j < board_cells[0].length; j++) {
+                    board_cells[i][j].setColor_alive(new_color);
+                }
             }
         }
     }
@@ -71,14 +87,14 @@ public class Gameboard extends JInternalFrame implements Runnable {
         /*board_cells get created for real with mouselistener*/
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                board_cells[i][j] = new Cell(false, i, j, /*colors_alive[0]*/ Color.BLUE, /*colors_dead[0]*/ Color.CYAN);
+                board_cells[i][j] = new Cell(false, i, j, Color.BLUE, Color.CYAN);
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
             }
         }
         life = new Lifecycle(this);
-        c_panel_alive = new ColorPanelAlive(this);
-        c_panel_dead = new ColorPanelDead(this);
+        c_p_alive = new ColorPanelAlive(this);
+        c_p_dead = new ColorPanelDead(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
@@ -103,18 +119,67 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (t_wait < 10000) t_wait += 1000;
         });
 
+        for(int i = 0; i<8; i++)
+        {
+            c_p_alive.colorButtons[i].addActionListener(e-> {
+                if (e.getSource().equals(c_p_alive.colorButtons[0])) {
+                    littleHelper(c_p_alive.colors[0], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[1])) {
+                    littleHelper(c_p_alive.colors[1], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[2])) {
+                    littleHelper(c_p_alive.colors[2], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[3])) {
+                    littleHelper(c_p_alive.colors[3], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[4])) {
+                    littleHelper(c_p_alive.colors[4], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[5])) {
+                    littleHelper(c_p_alive.colors[5], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[6])) {
+                    littleHelper(c_p_alive.colors[6], true);
+                } else if (e.getSource().equals(c_p_alive.colorButtons[7])) {
+                    littleHelper(c_p_alive.colors[7], true);
+                }
+            });
+
+            c_p_dead.colorButtons[i].addActionListener(e-> {
+                if (e.getSource().equals(c_p_dead.colorButtons[0])) {
+                    littleHelper(c_p_dead.colors[0], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[1])) {
+                    littleHelper(c_p_dead.colors[1], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[2])) {
+                    littleHelper(c_p_dead.colors[2], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[3])) {
+                    littleHelper(c_p_dead.colors[3], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[4])) {
+                    littleHelper(c_p_dead.colors[4], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[5])) {
+                    littleHelper(c_p_dead.colors[5], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[6])) {
+                    littleHelper(c_p_dead.colors[6], false);
+                } else if (e.getSource().equals(c_p_dead.colorButtons[7])) {
+                    littleHelper(c_p_dead.colors[7], false);
+                }
+            });
+        }
+        fensterMenu[0].addActionListener(e-> {
+            for (int i = 0; i < board_cells.length; i++) {
+                for (int j = 0; j < board_cells[0].length; j++) {
+                    board_cells[i][j].switchColor();
+                }
+            }
+        });
+
         setJMenuBar(menuBar);
         for (JMenu jMenu : menu) menuBar.add(jMenu);
         for (JMenuItem jMenuItem : modusMenuItem) menu[0].add(jMenuItem);
         for (JMenuItem jMenuItem : geschwindigkeitMenuItem) menu[1].add(jMenuItem);
         for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
         for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
-       // for (JMenu jMenu : farbenMenu) jMenu.add(c_panel);
-        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_panel_alive);
-        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[i].add(c_panel_dead);
+        for (JMenu jMenu : farbenMenu) jMenu.add(c_p_alive);
+        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_p_dead);
+        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
-        for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
-
+        fensterMenu[0].add(fensterMenuItem[0]);
         //endregion
 
         title_nr++;
@@ -122,10 +187,10 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setVisible(true);
     }
 
-    public void changeColors(Color new_color, boolean alive)
+   /* public void changeColors(Color new_color, boolean alive)
     {
 
-    }
+    }*/
 
     /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/
     public void run() {
