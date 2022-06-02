@@ -27,7 +27,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final Slider slider;
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.HEAVY_SPACESHIP;
+    private Figure figure = Figure.PENTADECATHLON;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
