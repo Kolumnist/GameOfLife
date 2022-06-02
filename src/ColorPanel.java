@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ColorPanel extends JPanel {
+
+ private Gameboard gameboard;
 
     JButton[] colorButtons = {new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton(""),
@@ -11,15 +15,17 @@ public class ColorPanel extends JPanel {
             Color.green, Color.magenta, Color.orange,
             Color.pink, Color.red, Color.yellow};
 
-    ColorPanel() {
-
+    ColorPanel(Gameboard gameboard) {
         for (int i = 0; i < colorButtons.length; i++) {
+            this.colorButtons[i] = colorButtons[i];
             colorButtons[i] = new RoundButton("", 360, true);
-            add(colorButtons[i]);
             colorButtons[i].setVisible(true);
+            add(colorButtons[i]);
+            colorButtons[i].addActionListener((ActionListener) this);
             setSize(100, 100);
             setBackground(Color.white);
             setVisible(true);
+            colorButtons[i].addActionListener((ActionListener) this);
         }
         colorButtons[0].setBackground(colors[0]);
         colorButtons[1].setBackground(colors[1]);
@@ -30,17 +36,51 @@ public class ColorPanel extends JPanel {
         colorButtons[6].setBackground(colors[6]);
         colorButtons[7].setBackground(colors[7]);
     }
-}
- /*
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JComponent contentPane = new ColorPanel();
-        f.setContentPane(contentPane);
+    class MyDeadColors implements ActionListener {
 
-        f.pack();
-        f.setSize(100, 100);
-        f.setVisible(true);
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals(colorButtons[0])) {
+                setColor_dead(Color.blue);
+            } else if (e.getActionCommand().equals(colorButtons[1])) {
+                setColor_dead(Color.cyan);
+            } else if (e.getActionCommand().equals(colorButtons[2])) {
+                setColor_dead(Color.green);
+            } else if (e.getActionCommand().equals(colorButtons[3])) {
+                setColor_dead(Color.magenta);
+            } else if (e.getActionCommand().equals(colorButtons[4])) {
+                setColor_dead(Color.orange);
+            } else if (e.getActionCommand().equals(colorButtons[5])) {
+                setColor_dead(Color.pink);
+            } else if (e.getActionCommand().equals(colorButtons[6])) {
+                setColor_dead(Color.red);
+            } else if (e.getActionCommand().equals(colorButtons[7])) {
+                setColor_dead(Color.yellow);
+            }
+        }
     }
-}*/
+
+    class MyAliveColors implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals(colorButtons[0])) {
+                setColor_alive(Color.blue);
+            } else if (e.getActionCommand().equals(colorButtons[1])) {
+                setColor_alive(Color.cyan);
+            } else if (e.getActionCommand().equals(colorButtons[2])) {
+                setColor_alive(Color.green);
+            } else if (e.getActionCommand().equals(colorButtons[3])) {
+                setColor_alive(Color.magenta);
+            } else if (e.getActionCommand().equals(colorButtons[4])) {
+                setColor_alive(Color.orange);
+            } else if (e.getActionCommand().equals(colorButtons[5])) {
+                setColor_alive(Color.pink);
+            } else if (e.getActionCommand().equals(colorButtons[6])) {
+                setColor_alive(Color.red);
+            } else if (e.getActionCommand().equals(colorButtons[7])) {
+                setColor_alive(Color.yellow);
+            }
+        }
+    }
+}
+
+
