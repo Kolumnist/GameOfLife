@@ -26,7 +26,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final ColorPanelDead c_p_dead;
     private final Slider slider;
 
-
     private State state = State.SETUP; //This displays the current state of the gameboard
     private Figure figure = Figure.HEAVY_SPACESHIP;
     private static int title_nr;
@@ -38,7 +37,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
-            figurenMenuItem = {new JMenuItem("Gleiter")};
+            figurenMenuItem = {new JMenuItem("Gleiter")},
+            fensterLeerenMenuItem = {new JMenuItem("leere")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -193,6 +193,15 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 }
             }
         });
+
+        fensterLeerenMenuItem[0].addActionListener(e -> {
+            for (Cell[] board_cell : board_cells) {
+                for (int j = 0; j < board_cells[0].length; j++) {
+                    board_cell[j].setAlive(false);
+                    board_cell[j].setBackground(board_cell[j].getColor_dead());
+                }
+            }
+        });
         //endregion
 
         setJMenuBar(menuBar);
@@ -206,7 +215,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         fensterMenu[0].add(fensterMenuItem[0]);
-
+        menu[4].add(fensterLeerenMenuItem[0]);
+        
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(menu[4]);
         //endregion
@@ -222,7 +232,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             //System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
-                Thread.sleep(10000-t_wait);
+                Thread.sleep(10000 - t_wait);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
