@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Gameboard extends JInternalFrame implements Runnable {
 
     enum Figure{
-        NOTHING, GLIDER, LIGHT_SPACESHIP, PENTADECATHLON
+        NOTHING, GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, PENTADECATHLON
     }
 
     enum State {
@@ -27,7 +27,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.PENTADECATHLON;
+    private Figure figure = Figure.MIDDLE_SPACESHIP;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -74,6 +74,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
                     hcotf.pentadecathlon((Cell)e.getComponent());
+                }
+                else if(figure == Figure.MIDDLE_SPACESHIP)
+                {
+                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
+                    hcotf.middleSpaceship((Cell)e.getComponent());
                 }
             }
         }
@@ -223,7 +228,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/
     public void run() {
         while (state == State.RUNNING) {
-            System.out.println("Hallo ich funktioniere!");
+            //System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
                 Thread.sleep(10000-t_wait);
