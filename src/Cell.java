@@ -6,7 +6,7 @@ public class Cell extends JPanel {
     private boolean alive = false; // alive or dead
 
     private int x_pos, y_pos;
-    private Color color_alive, color_dead;
+    public Color color_alive, color_dead;
 
     public Cell(boolean alive, int x_pos, int y_pos)
     {
