@@ -1,61 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class GameMenu extends JPanel implements ActionListener {
+public class GameMenu extends JPanel {
 
     private static JDesktopPane myDesktop;
+    private static JComboBox gridList;
     static JFrame myFrame = new JFrame();
     static JButton drückMich = new JButton("Create new board!");
-
-
-  /*  static JMenuBar menuBar = new JMenuBar();
-    static JMenu[] menu = {
-            new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
-    JMenuItem[] modusMenuItem = {
-            new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")};
-    JMenuItem[] geschwindigkeitMenuItem = {
-            new JMenuItem(""), new JMenuItem(""), new JMenuItem("")};
-    JMenu[] fensterMenu = {
-            new JMenu("Farben")};
-    JMenuItem[] fensterMenuItem = {
-            new JMenuItem("tot"), new JMenuItem("lebendig"), new JMenuItem("wechseln")};
-    JMenuItem[] figurenMenuItem = {
-            new JMenuItem("Gleiter")};
-
-
-    GameMenu() {
-        for (int i = 0; i <= menu.length - 1; i++) {
-            menuBar.add(menu[i]);
-        }
-        for (int i = 0; i <= modusMenuItem.length - 1; i++) {
-            menu[0].add(modusMenuItem[i]);
-        }
-        for (int i = 0; i <= geschwindigkeitMenuItem.length - 1; i++) {
-            menu[1].add(geschwindigkeitMenuItem[i]);
-        }
-        for (int i = 0; i <= fensterMenu.length - 1; i++) {
-            menu[2].add(fensterMenu[i]);
-        }
-        for (int i = 0; i <= figurenMenuItem.length - 1; i++) {
-            menu[3].add(figurenMenuItem[i]);
-        }
-        for (int i = 0; i <= fensterMenuItem.length - 1; i++) {
-            fensterMenu[0].add(fensterMenuItem[i]);
-        }
-    }
-
-    public static void main(String[] args) {
-        JFrame myFrame = new JFrame();
-        myFrame.setJMenuBar(menuBar);
-        JComponent contentPane = new GameMenu();
-        myFrame.setContentPane(contentPane);
-        myFrame.pack();
-        myFrame.setSize(500, 500);
-        myFrame.setVisible(true);
-    }*/
-
+    private Gameboard gameboard;
 
     public GameMenu() {
         drückMich.setSize(200, 50);
@@ -64,7 +16,38 @@ public class GameMenu extends JPanel implements ActionListener {
         drückMich.setForeground(Color.white);
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
-        drückMich.addActionListener(this);
+        // drückMich.addActionListener(this);
+        gridList = new JComboBox(new String[]{"8x8", "16x16", "24x24", "32x32", "64x64"});
+        gridList.setSelectedIndex(4);
+        gridList.setVisible(true);
+        gridList.setSize(200, 20);
+        gridList.setLocation(650, 525);
+        drückMich.addActionListener(e -> {
+            switch (gridList.getSelectedIndex()) {
+                case 0:
+                    gameboard = new Gameboard(8, 8);
+                    myDesktop.add(gameboard);
+                    break;
+                case 1:
+                    gameboard = new Gameboard(16, 16);
+                    myDesktop.add(gameboard);
+                    break;
+                case 2:
+                    gameboard = new Gameboard(24, 24);
+                    myDesktop.add(gameboard);
+                    break;
+                case 3:
+                    gameboard = new Gameboard(32, 32);
+                    myDesktop.add(gameboard);
+                    break;
+                case 4:
+                    gameboard = new Gameboard(64, 64);
+                    myDesktop.add(gameboard);
+                    break;
+                default:
+                    System.out.println("Wow! How did you do this? That shouldn't be possible!");
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -76,16 +59,9 @@ public class GameMenu extends JPanel implements ActionListener {
         myFrame.setSize(1500, 1000);
         myFrame.setLocationRelativeTo(null);
         myFrame.setTitle("Game of Life");
-        myFrame.setVisible(true);
+        myFrame.add(gridList);
         myFrame.add(drückMich);
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Create new board!")){
-            Gameboard gb = new Gameboard(20,20);
-            myDesktop.add(gb);
-        }
+        myFrame.setVisible(true);
     }
 }
+
