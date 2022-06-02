@@ -58,16 +58,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
                     Cell c = (Cell) e.getComponent();
                     c.switchAlive();
                 } else if (figure == Figure.GLIDER) {
-                    Cell c = (Cell) e.getComponent();
-
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.glider(c);
-                    board_cells[c.getX_pos() - 1][c.getY_pos() + 1].switchAlive();
-                    board_cells[c.getX_pos()][c.getY_pos() + 1].switchAlive();
-                    board_cells[c.getX_pos() + 1][c.getY_pos() + 1].switchAlive();
-                    board_cells[c.getX_pos() + 1][c.getY_pos()].switchAlive();
-                    board_cells[c.getX_pos()][c.getY_pos() - 1].switchAlive();
-
+                    hcotf.glider((Cell) e.getComponent());
                     figure = Figure.NOTHING;
                 }
             }
