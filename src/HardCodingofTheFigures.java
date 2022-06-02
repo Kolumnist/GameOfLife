@@ -94,7 +94,7 @@ public class HardCodingofTheFigures {
         board_cells[c.getX_pos()+3][c.getY_pos()].switchAlive();
 
         board_cells[c.getX_pos()-3][c.getY_pos()+1].switchAlive();
-        board_cells[c.getX_pos()+3][c.getY_pos()+1].switchAlive();
+        board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();
 
         board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();
         board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();

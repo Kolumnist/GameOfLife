@@ -7,7 +7,8 @@ import java.io.Serializable;
 public class Gameboard extends JInternalFrame implements Runnable {
 
     enum Figure{
-        NOTHING, GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, PENTADECATHLON
+        NOTHING, GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP,
+        PENTADECATHLON
     }
 
     enum State {
@@ -27,7 +28,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.MIDDLE_SPACESHIP;
+    private Figure figure = Figure.HEAVY_SPACESHIP;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -77,6 +78,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
                     hcotf.middleSpaceship((Cell)e.getComponent());
+                }
+                else if(figure == Figure.HEAVY_SPACESHIP)
+                {
+                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
+                    hcotf.heavySpaceship((Cell)e.getComponent());
                 }
             }
         }
