@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ColorPanel extends JPanel {
+public class ColorPanelAlive extends JPanel {
 
  private Gameboard gameboard;
 
@@ -15,7 +15,7 @@ public class ColorPanel extends JPanel {
             Color.green, Color.magenta, Color.orange,
             Color.pink, Color.red, Color.yellow};
 
-    ColorPanel(Gameboard gameboard) {
+    ColorPanelAlive(Gameboard gameboard) {
         this.gameboard = gameboard;
         for (int i = 0; i < colorButtons.length; i++) {
             this.colorButtons[i] = colorButtons[i];

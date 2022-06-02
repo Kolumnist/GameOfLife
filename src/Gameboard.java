@@ -18,7 +18,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
     public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
-    private final ColorPanel c_panel;
+    private final ColorPanelAlive c_panel_alive;
+    private final ColorPanelDead c_panel_dead;
+
     //private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     //private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
@@ -75,7 +77,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
             }
         }
         life = new Lifecycle(this);
-        c_panel = new ColorPanel(this);
+        c_panel_alive = new ColorPanelAlive(this);
+        c_panel_dead = new ColorPanelDead(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
@@ -106,7 +109,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenuItem jMenuItem : geschwindigkeitMenuItem) menu[1].add(jMenuItem);
         for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
         for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
-        for (JMenu jMenu : farbenMenu) jMenu.add(c_panel);
+       // for (JMenu jMenu : farbenMenu) jMenu.add(c_panel);
+        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_panel_alive);
+        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[i].add(c_panel_dead);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
 
