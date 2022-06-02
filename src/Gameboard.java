@@ -13,7 +13,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     enum Figure {
         NOTHING,
-        PENTADECATHLON, OKTAGON,
+        OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,
         GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP
     }
 
@@ -41,14 +41,14 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"), new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
-    private JMenu[] figurenMenu = {new JMenu("Pentadecathlon"), new JMenu("Oktagon"), new JMenu("Gleiter"),
+    private JMenu[] figurenMenu = {new JMenu("Oktagon"), new JMenu("Pentadecathlon"), new JMenu("Gleiter"),
             new JMenu("Kleines Raumschiff"), new JMenu("Mittlers Raumschiff"), new JMenu("Schweres Raumschiff")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
             fensterLeerenMenuItem = {new JMenuItem("leere")},
-            figurenItemPentadecathlon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
             figurenItemOktagon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemPentadecathlon = {new JMenuItem("horizontal"), new JMenuItem("vertikal")},
             figurenItemGleiter = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
             figurenItemLSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
             figurenItemMSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
@@ -73,8 +73,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 switch(figure)
                 {
                     case NOTHING: c.switchAlive(); break;
-                    case PENTADECATHLON: hardFig.pentadecathlon(c); figure = Figure.NOTHING; break;
                     case OKTAGON: hardFig.oktagon(c); figure = Figure.NOTHING; break;
+                    case PENTADECATHLON_HORIZONTALLY: hardFig.pentadecathlonHorizontal(c); figure = Figure.NOTHING; break;
+                    case PENTADECATHLON_VERTICALLY: hardFig.pentadecathlonVertical(c); figure = Figure.NOTHING; break;
                     case GLIDER: hardFig.glider(c); figure = Figure.NOTHING; break;
                     case LIGHT_SPACESHIP: hardFig.lightSpaceship(c); figure = Figure.NOTHING; break;
                     case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); figure = Figure.NOTHING; break;
@@ -106,6 +107,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         //is the width and height of the gameboard(in cells)
 
         board_cells = new Cell[width][height];
+        c_p_alive = new ColorPanelAlive(this);
+        c_p_dead = new ColorPanelDead(this);
 
         setLayout(new GridLayout(width, height, 1, 1));
         setBackground(Color.white);
@@ -115,15 +118,13 @@ public class Gameboard extends JInternalFrame implements Runnable {
         /*board_cells get created for real with mouselistener*/
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                board_cells[i][j] = new Cell(false, i, j, Color.BLUE, Color.CYAN);
+                board_cells[i][j] = new Cell(false, i, j, c_p_alive.colors[0], c_p_dead.colors[4]);
                 board_cells[i][j].addMouseListener(new MouseListener());
                 add(board_cells[i][j]);
             }
         }
         life = new Lifecycle(this);
         hardFig = new HardCodingofTheFigures(board_cells);
-        c_p_alive = new ColorPanelAlive(this);
-        c_p_dead = new ColorPanelDead(this);
         slider = new Slider(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
@@ -200,8 +201,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
         //endregion
 
         //region ActionListener for the figure management
-        figurenItemPentadecathlon[0].addActionListener(e -> figure = Figure.PENTADECATHLON);
         figurenItemOktagon[0].addActionListener(e -> figure = Figure.OKTAGON);
+        figurenItemPentadecathlon[0].addActionListener(e -> figure = Figure.PENTADECATHLON_HORIZONTALLY);
+        figurenItemPentadecathlon[1].addActionListener(e -> figure = Figure.PENTADECATHLON_VERTICALLY);
         figurenItemGleiter[0].addActionListener(e -> figure = Figure.GLIDER);
         figurenItemLSpaceship[0].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP);
         figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP);
@@ -218,8 +220,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenu jMenu : figurenMenu) menu[3].add(jMenu);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_p_dead);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
-        for (JMenuItem jMenuItem : figurenItemPentadecathlon) figurenMenu[0].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenItemOktagon) figurenMenu[1].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemOktagon) figurenMenu[0].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemPentadecathlon) figurenMenu[1].add(jMenuItem);
         for (JMenuItem jMenuItem : figurenItemGleiter) figurenMenu[2].add(jMenuItem);
         for (JMenuItem jMenuItem : figurenItemLSpaceship) figurenMenu[3].add(jMenuItem);
         for (JMenuItem jMenuItem : figurenItemMSpaceship) figurenMenu[4].add(jMenuItem);
