@@ -69,7 +69,7 @@ public class Lifecycle {
             for (int j = yPosition - 1; j <= yPosition + 1; j++) {
                 if (!(xPosition == i && yPosition == j) && gameGrid[i][j].getAlive() == true) {
                     neighbour++;
-                    //System.out.println("HEY ICH FUNKTIONIER AUCH!");
+                    System.out.println("HEY ICH FUNKTIONIER AUCH!");
                 }
             }
         }
