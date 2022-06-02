@@ -33,11 +33,11 @@ public class Gameboard extends JInternalFrame implements Runnable {
                     new JMenuItem("Schneller(1000)"), new JMenuItem("Langsamer(1000)")},
             fensterMenuItem = {new JMenuItem("wechseln")},
             figurenMenuItem = {new JMenuItem("Gleiter")};
-    //totMenuItem = {new JMenuItem("")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
-        /*Only used when state is DRAWING. Handles the drawing*/
+        /*Only used when state is DRAWING.
+         Handles the drawing*/
         public void mouseEntered(MouseEvent e) {
             if (state == State.DRAWING) {
                 Cell c = (Cell) e.getComponent();
@@ -45,7 +45,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
             }
         }
 
-        /*Only used when state is SETUP. Handles the clicking and setting of Cells*/
+        /*Only used when state is SETUP.
+        Handles the clicking and setting of Cells*/
         public void mouseReleased (MouseEvent e){
             if (state == State.SETUP) {
                 Cell c = (Cell) e.getComponent();
@@ -98,13 +99,16 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
+        //region ActionListener for the different States
         modusMenuItem[0].addActionListener(e -> {
             state = State.RUNNING;
             new Thread(this).start();
         });
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
+        //endregion
 
+        //region ActionListener for the speed of the generations
         geschwindigkeitMenuItem[0].addActionListener(e -> t_wait = 2000);
         geschwindigkeitMenuItem[1].addActionListener(e -> {
             if (t_wait > 100) t_wait -= 100;
@@ -113,12 +117,14 @@ public class Gameboard extends JInternalFrame implements Runnable {
             if (t_wait < 10000) t_wait += 100;
         });
         geschwindigkeitMenuItem[3].addActionListener(e -> {
-            if (t_wait > 1000) t_wait -= 1000;
+            if (t_wait > 0) t_wait -= 1000;
         });
         geschwindigkeitMenuItem[4].addActionListener(e -> {
             if (t_wait < 10000) t_wait += 1000;
         });
+        //endregion
 
+        //region ActionListener for the color management and switching
         for(int i = 0; i<8; i++)
         {
             c_p_alive.colorButtons[i].addActionListener(e-> {
@@ -161,13 +167,15 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 }
             });
         }
-        fensterMenu[0].addActionListener(e-> {
-            for (int i = 0; i < board_cells.length; i++) {
+
+        fensterMenuItem[0].addActionListener(e-> {
+            for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
-                    board_cells[i][j].switchColor();
+                    board_cell[j].switchColor();
                 }
             }
         });
+        //endregion
 
         setJMenuBar(menuBar);
         for (JMenu jMenu : menu) menuBar.add(jMenu);
@@ -180,17 +188,13 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
         for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         fensterMenu[0].add(fensterMenuItem[0]);
+
         //endregion
 
         title_nr++;
         show();
         setVisible(true);
     }
-
-   /* public void changeColors(Color new_color, boolean alive)
-    {
-
-    }*/
 
     /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/
     public void run() {
