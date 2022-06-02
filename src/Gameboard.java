@@ -7,27 +7,29 @@ import java.io.Serializable;
 public class Gameboard extends JInternalFrame implements Runnable {
 
     enum Figure {
-        NOTHING, GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP,
-        PENTADECATHLON
+        NOTHING,
+        PENTADECATHLON, OKTAGON,
+        GLIDER, LIGHT_SPACESHIP, MIDDLE_SPACESHIP, HEAVY_SPACESHIP
     }
 
-    enum State {
+    enum State {//The different States the gameboard can be in:
         RUNNING, SETUP, DRAWING
-    } //The different States:
-    //-> Running state means the gameboard is currently going through its lifecycle
-    //-> Setup state means that with a single mouseclick a cell comes to life or dies
-    //-> Drawing state is like Setup but with the mouse only entering a cell
+        //-> Running state means the gameboard is currently going through its lifecycle
+        //-> Setup state means that with a single mouseclick a cell comes to life or dies
+        //-> Drawing state is like Setup but with the mouse only entering a cell
+    }
 
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
     public int t_wait = 8000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
+    private final HardCodingofTheFigures hardFig;
     private final ColorPanelAlive c_p_alive;
     private final ColorPanelDead c_p_dead;
     private final Slider slider;
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.PENTADECATHLON;
+    private Figure figure = Figure.OKTAGON;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -61,25 +63,16 @@ public class Gameboard extends JInternalFrame implements Runnable {
         Handles the clicking and setting of Cells*/
         public void mouseReleased(MouseEvent e) {
             if (state == State.SETUP) {
-                if (figure == Figure.NOTHING) {
-                    Cell c = (Cell) e.getComponent();
-                    c.switchAlive();
-                } else if (figure == Figure.GLIDER) {
-                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.glider((Cell) e.getComponent());
-                    figure = Figure.NOTHING;
-                } else if (figure == Figure.LIGHT_SPACESHIP) {
-                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.lightSpaceship((Cell) e.getComponent());
-                } else if (figure == Figure.PENTADECATHLON) {
-                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.pentadecathlon((Cell) e.getComponent());
-                } else if (figure == Figure.MIDDLE_SPACESHIP) {
-                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.middleSpaceship((Cell) e.getComponent());
-                } else if (figure == Figure.HEAVY_SPACESHIP) {
-                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
-                    hcotf.heavySpaceship((Cell) e.getComponent());
+                Cell c = (Cell) e.getComponent();
+                switch(figure)
+                {
+                    case NOTHING: c.switchAlive(); break;
+                    case PENTADECATHLON: hardFig.pentadecathlon(c); figure = Figure.NOTHING; break;
+                    case OKTAGON: hardFig.oktagon(c); break;
+                    case GLIDER: hardFig.glider(c); break;
+                    case LIGHT_SPACESHIP: hardFig.lightSpaceship(c); break;
+                    case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); break;
+                    case HEAVY_SPACESHIP: hardFig.heavySpaceship(c); break;
                 }
             }
         }
@@ -121,6 +114,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             }
         }
         life = new Lifecycle(this);
+        hardFig = new HardCodingofTheFigures(board_cells);
         c_p_alive = new ColorPanelAlive(this);
         c_p_dead = new ColorPanelDead(this);
         slider = new Slider(this);
