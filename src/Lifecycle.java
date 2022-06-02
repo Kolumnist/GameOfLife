@@ -76,9 +76,6 @@ public class Lifecycle {
             }
         }
 
-        //Wenn eine lebende Zelle 2oder3 andere Lebende Zelle neben sich hat lebt sie
-        //Wenn eine tote Zelle 3 andere lebende Zellen neben sich hat lebt sie
-
         //Set the cell to be alive in the second grid
         if (gameGrid[xPosition][yPosition].getAlive() == true && (neighbour == 1 || neighbour == 2)) {
             nextGrid[xPosition][yPosition].setAlive(true);
@@ -90,15 +87,24 @@ public class Lifecycle {
     public void nextCycle() {
         copyCellsIntoGrid();
 
+        //region Putting living cells, which are at the bounds of the gameboard, out of the bound of the gameboard
         for (int i = 2; i < gridLenght; i++) {
             if (gameGrid[2][i].getAlive() == true) {
                 gameGrid[gridHeight - 2][i].setAlive(true);
             }
-            if (gameGrid[gridHeight - 2][i].getAlive() == true) {
+            if (gameGrid[gridHeight - 3][i].getAlive() == true) {
                 gameGrid[1][i].setAlive(true);
             }
         }
-        toString(gameGrid);
+        for (int i = 2; i < gridHeight; i++) {
+            if (gameGrid[i][2].getAlive() == true) {
+                gameGrid[i][gridLenght - 2].setAlive(true);
+            }
+            if (gameGrid[i][gridLenght - 3].getAlive() == true) {
+                gameGrid[i][1].setAlive(true);
+            }
+        }
+        //endregion
 
         for (int i = 2; i < gameGrid.length - 1; i++) {
             for (int j = 2; j < gameGrid[0].length - 1; j++) {
@@ -106,7 +112,7 @@ public class Lifecycle {
             }
         }
 
-        //Putting living cells, which are "out of bounds", back into the bound of the gameboard
+        //region Putting living cells, which are "out of bounds", back into the bound of the gameboard
         for (int i = 2; i < gridLenght; i++) {
             if (nextGrid[1][i].getAlive() == true) {
                 nextGrid[gridHeight - 2][i].setAlive(true);
@@ -115,9 +121,6 @@ public class Lifecycle {
                 nextGrid[2][i].setAlive(true);
             }
         }
-
-        toString(nextGrid);
-
         for (int i = 2; i < gridHeight; i++) {
             if (nextGrid[i][1].getAlive() == true) {
                 nextGrid[i][2].setAlive(true);
@@ -126,18 +129,19 @@ public class Lifecycle {
                 nextGrid[i][gridLenght - 2].setAlive(true);
             }
         }
+        //endregion
 
         copyCellsIntoGameboard();
         cleanGrid();
     }
-
+    
     public void toString(Cell[][] pCell) {
         for (Cell[] one : pCell) {
             for (Cell two : one) {
                 if (two.getAlive() == true) {
-                    System.out.print(1);
+                    System.out.print("1 ");
                 }else{
-                    System.out.print(0);
+                    System.out.print("0 ");
                 }
             }
             System.out.println("");
