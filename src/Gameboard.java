@@ -58,16 +58,16 @@ public class Gameboard extends JInternalFrame implements Runnable {
     {
         if(!alive)
         {
-            for (int i = 0; i < board_cells.length; i++) {
+            for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
-                    board_cells[i][j].setColor_dead(new_color);
+                    board_cell[j].setColor_dead(new_color);
                 }
             }
         }
         else {
-            for (int i = 0; i < board_cells.length; i++) {
+            for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
-                    board_cells[i][j].setColor_alive(new_color);
+                    board_cell[j].setColor_alive(new_color);
                 }
             }
         }
