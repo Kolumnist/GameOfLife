@@ -84,7 +84,7 @@ public class GameMenu extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Create new board!")){
-            Gameboard gb = new Gameboard(8,8);
+            Gameboard gb = new Gameboard(20,20);
             myDesktop.add(gb);
         }
     }

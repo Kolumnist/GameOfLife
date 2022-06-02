@@ -6,6 +6,10 @@ import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame implements Runnable {
 
+    enum Figure{
+        NOTHING, GLIDER, LIGHT_SPACESHIP
+    }
+
     enum State {
         RUNNING, SETUP, DRAWING
     } //The different States:
@@ -13,7 +17,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
     //-> Setup state means that with a single mouseclick a cell comes to life or dies
     //-> Drawing state is like Setup but with the mouse only entering a cell
 
-    public State state = State.SETUP; //This displays the current state of the gameboard
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
     public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
@@ -21,6 +24,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final ColorPanelAlive c_p_alive;
     private final ColorPanelDead c_p_dead;
 
+    private State state = State.SETUP; //This displays the current state of the gameboard
+    private Figure figure = Figure.GLIDER;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -49,16 +54,29 @@ public class Gameboard extends JInternalFrame implements Runnable {
         Handles the clicking and setting of Cells*/
         public void mouseReleased (MouseEvent e){
             if (state == State.SETUP) {
-                Cell c = (Cell) e.getComponent();
-                c.switchAlive();
+                if (figure == Figure.NOTHING) {
+                    Cell c = (Cell) e.getComponent();
+                    c.switchAlive();
+                } else if (figure == Figure.GLIDER) {
+                    Cell c = (Cell) e.getComponent();
+
+                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
+                    hcotf.glider(c);
+                    board_cells[c.getX_pos() - 1][c.getY_pos() + 1].switchAlive();
+                    board_cells[c.getX_pos()][c.getY_pos() + 1].switchAlive();
+                    board_cells[c.getX_pos() + 1][c.getY_pos() + 1].switchAlive();
+                    board_cells[c.getX_pos() + 1][c.getY_pos()].switchAlive();
+                    board_cells[c.getX_pos()][c.getY_pos() - 1].switchAlive();
+
+                    figure = Figure.NOTHING;
+                }
             }
         }
     }
 
     private void littleHelper(Color new_color, boolean alive)
     {
-        if(!alive)
-        {
+        if(!alive) {
             for (Cell[] board_cell : board_cells) {
                 for (int j = 0; j < board_cells[0].length; j++) {
                     board_cell[j].setColor_dead(new_color);
