@@ -3,29 +3,23 @@
  * @Matrikelnummer: 212455 [mjouaux], 212848 [choss], 212467 [lmangi]
  * @version 1 02.06.2022
  */
+
 import javax.swing.*;
 import java.awt.*;
 
 
 public class ColorPanelDead extends JPanel {
 
- private Gameboard gameboard;
- Color midnightblue = new Color(25,25,112);
- Color aquamarine = new Color(127,255,212);
- Color salmon = new Color(250,140,105);
- Color darkred = new Color(139,0,0);
- Color darkslategray = new Color(47,79,79);
- Color darkolivegreen2 = new Color(188,238,104);
- Color orchid = new Color(218,112,214);
- Color darkgoldenrod = new Color(139,101,8);
+    private Gameboard gameboard;
 
     JButton[] colorButtons = {new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton("")};
 
-    Color[] colors = {darkgoldenrod, orchid,
-            darkolivegreen2, midnightblue, aquamarine,
-            darkred, darkslategray, salmon};
+    Color[] colors = {Color.blue, Color.cyan,
+            Color.green, Color.magenta, Color.orange,
+            Color.pink, Color.red, Color.yellow};
+
 
     ColorPanelDead(Gameboard gameboard) {
         this.gameboard = gameboard;
