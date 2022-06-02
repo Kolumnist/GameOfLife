@@ -18,7 +18,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     //-> Drawing state is like Setup but with the mouse only entering a cell
 
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
-    public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
+    public int t_wait = 8000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
     private final ColorPanelAlive c_p_alive;
@@ -27,7 +27,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.GLIDER;
+    private Figure figure = Figure.LIGHT_SPACESHIP;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -59,10 +59,16 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 if (figure == Figure.NOTHING) {
                     Cell c = (Cell) e.getComponent();
                     c.switchAlive();
-                } else if (figure == Figure.GLIDER) {
+                }
+                else if (figure == Figure.GLIDER) {
                     HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
                     hcotf.glider((Cell) e.getComponent());
                     figure = Figure.NOTHING;
+                }
+                else if (figure == Figure.LIGHT_SPACESHIP)
+                {
+                    HardCodingofTheFigures hcotf = new HardCodingofTheFigures(board_cells);
+                    hcotf.lightSpaceship((Cell)e.getComponent());
                 }
             }
         }
@@ -215,7 +221,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
-                Thread.sleep(t_wait);
+                Thread.sleep(10000-t_wait);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
