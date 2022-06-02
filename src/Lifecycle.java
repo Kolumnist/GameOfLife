@@ -1,43 +1,42 @@
-import java.awt.*;
-
 public class Lifecycle {
     Gameboard gameboard;
     Cell[][] nextGrid = new Cell[12][12];
     Cell[][] gameGrid = new Cell[12][12];
-    int gridLenght; // how many colums the grid has
-    int gridHeight; // how many rows the grid has
-    int gameLenght; // how many colums the gameboard has
-    int gameHeight; // how many rows the gameboard has
+    int gridColumnNumber; // how many columns the grid has
+    int gridRowNumber; // how many rows the grid has
+    int gameColumnNumber; // how many columns the gameboard has
+    int gameRowNumber; // how many rows the gameboard has
 
     public Lifecycle(Gameboard pGameboard){
         gameboard = pGameboard;
-        gridHeight = gameboard.board_cells.length + 4;
-        gridLenght = gameboard.board_cells[0].length + 4;
-        gameHeight = gameboard.board_cells.length;
-        gameLenght = gameboard.board_cells[0].length;
+        gridRowNumber = gameboard.board_cells.length + 4;
+        gridColumnNumber = gameboard.board_cells[0].length + 4;
+        gameRowNumber = gameboard.board_cells.length;
+        gameColumnNumber = gameboard.board_cells[0].length;
 
-        nextGrid = new Cell[gridHeight][gridLenght];
-        gameGrid = new Cell[gridHeight][gridLenght];
+        nextGrid = new Cell[gridRowNumber][gridColumnNumber];
+        gameGrid = new Cell[gridRowNumber][gridColumnNumber];
 
         cleanGrid();
-        copyCellsIntoGrid();
+        //copyCellsIntoGrid();
     }
 
     //Coping living cells from the gameboard into the gameGrid
     public void copyCellsIntoGrid(){
-        for(int i = 0; i < gameHeight; i++){
-            for(int j = 0; j < gameLenght; j++){
+        for(int i = 0; i < gameRowNumber; i++){
+            for(int j = 0; j < gameColumnNumber; j++){
                 if(gameboard.board_cells[i][j].getAlive() == true){
                     gameGrid[i+2][j+2].setAlive(true);
                 }
             }
         }
+        //changeBounds(false);
     }
 
     //Coping the changed gird into the gameboard
     public void copyCellsIntoGameboard(){
-        for(int i = 0; i < gameHeight; i++){
-            for(int j = 0; j < gameLenght; j++){
+        for(int i = 0; i < gameRowNumber; i++){
+            for(int j = 0; j < gameColumnNumber; j++){
                 if(nextGrid[i+2][j+2].getAlive() == true){
                     gameboard.board_cells[i][j].setAlive(true);
                     gameboard.board_cells[i][j].setBackground(gameboard.board_cells[i][j].getColor_alive());
@@ -51,13 +50,48 @@ public class Lifecycle {
 
     //Creating nextGrid and gameGrid, which are bigger in lenght and height by 4, with dead cells
     public void cleanGrid(){
-        for(int i = 0; i < gridHeight; i++){
-            for(int j = 0; j < gridLenght; j++){
+        for(int i = 0; i < gridRowNumber; i++){
+            for(int j = 0; j < gridColumnNumber; j++){
                 nextGrid[i][j] = new Cell(false, i, j);
                 gameGrid[i][j] = new Cell(false, i, j);
             }
         }
 
+    }
+
+    //Putting living cells, which are "out of bounds", back into the bound of the gameboard
+    //Or putting living cells, which are "in the bounds", out of the bound of the gameboard
+    public void changeBounds(boolean pPutInBounds){
+        int firstBound;
+        int secondBound;
+
+        //Deciding if the cells are put into the bound of the gameboard or out of the bound
+        if(pPutInBounds == true){
+            firstBound = 1;
+            secondBound = 2;
+        }else {
+            firstBound = 2;
+            secondBound = 1;
+        }
+
+        //Going through the row on the top and bottom
+        for(int i = 2; i <= gridColumnNumber-firstBound; i++){
+            if(gameGrid[firstBound][i].getAlive() == true){
+                gameGrid[secondBound][i].setAlive(true);
+            }
+            if(gameGrid[gridRowNumber - firstBound][i].getAlive() == true){
+                gameGrid[gridRowNumber - secondBound][i].setAlive(true);
+            }
+        }
+        //Going through the column on the left and right
+        for(int i = 2; i <= gridRowNumber-firstBound; i++){
+            if(gameGrid[i][firstBound].getAlive() == true){
+                gameGrid[i][secondBound].setAlive(true);
+            }
+            if(gameGrid[i][gridColumnNumber - firstBound].getAlive() == true){
+                gameGrid[i][gridColumnNumber - secondBound].setAlive(true);
+            }
+        }
     }
 
     //Counting how many neighbours one cell has and setting its living status
@@ -97,23 +131,7 @@ public class Lifecycle {
             }
         }
 
-        //Putting living cells, which are "out of bounds", back into the bound of the gameboard
-        for(int i = 2; i < gridLenght; i++){
-            if(gameGrid[1][i].getAlive() == true){
-                gameGrid[2][i].setAlive(true);
-            }
-            if(gameGrid[gridHeight-1][i].getAlive() == true){
-                gameGrid[gridHeight-2][i].setAlive(true);
-            }
-        }
-        for(int i = 2; i < gridHeight; i++){
-            if(gameGrid[i][1].getAlive() == true){
-                gameGrid[i][2].setAlive(true);
-            }
-            if(gameGrid[i][gridLenght-1].getAlive() == true){
-                gameGrid[i][gridLenght-2].setAlive(true);
-            }
-        }
+        changeBounds(true);
 
         copyCellsIntoGameboard();
         cleanGrid();
