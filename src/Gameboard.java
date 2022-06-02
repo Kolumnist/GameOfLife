@@ -14,15 +14,15 @@ public class Gameboard extends JInternalFrame implements Runnable {
     //-> Drawing state is like Setup but with the mouse only entering a cell
 
     public State state = State.SETUP; //This displays the current state of the gameboard
-    public Cell[][] board_cells = new Cell[8][8]; //The Gameboard is made out of these Cell
+    public Cell[][] board_cells; //The Gameboard is made out of these Cell
     public int t_wait = 2000; //the t_wait = thread_wait is used for the speed of the lifecycle
 
-    private Lifecycle life;
+    private final Lifecycle life;
     //private Color[] colors_alive = new Color[8]; // 8 different Colors for now can add some more later
     //private Color[] colors_dead = new Color[8]; //for the different colors plus every window has more color
 
     private static int title_nr;
-    private int width, height; //is the width and height of the gameboard(in cells)
+    private final int width, height; //is the width and height of the gameboard(in cells)
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren")};
@@ -60,6 +60,9 @@ public class Gameboard extends JInternalFrame implements Runnable {
         this.width = width;
         this.height = height;
 
+        board_cells = new Cell[width][height];
+        life = new Lifecycle(this);
+
         setLayout(new GridLayout(this.width, this.height, 1, 1));
         setBackground(Color.white);
         setSize(640, 640);
@@ -73,7 +76,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 add(board_cells[i][j]);
             }
         }
-        life = new Lifecycle(this);
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
@@ -99,13 +101,13 @@ public class Gameboard extends JInternalFrame implements Runnable {
         });
 
         setJMenuBar(menuBar);
-        for (int i = 0; i < menu.length; i++) menuBar.add(menu[i]);
-        for (int i = 0; i < modusMenuItem.length; i++) menu[0].add(modusMenuItem[i]);
-        for (int i = 0; i < geschwindigkeitMenuItem.length; i++) menu[1].add(geschwindigkeitMenuItem[i]);
-        for (int i = 0; i < fensterMenu.length; i++) menu[2].add(fensterMenu[i]);
-        for (int i = 0; i < farbenMenu.length; i++) fensterMenu[0].add(farbenMenu[i]);
-        for (int i = 0; i < farbenMenu.length; i++) farbenMenu[i].add(new ColorPanel());
-        for (int i = 0; i < figurenMenuItem.length; i++) menu[3].add(figurenMenuItem[i]);
+        for (JMenu jMenu : menu) menuBar.add(jMenu);
+        for (JMenuItem jMenuItem : modusMenuItem) menu[0].add(jMenuItem);
+        for (JMenuItem jMenuItem : geschwindigkeitMenuItem) menu[1].add(jMenuItem);
+        for (JMenu jMenu : fensterMenu) menu[2].add(jMenu);
+        for (JMenu jMenu : farbenMenu) fensterMenu[0].add(jMenu);
+        for (JMenu jMenu : farbenMenu) jMenu.add(new ColorPanel(this));
+        for (JMenuItem jMenuItem : figurenMenuItem) menu[3].add(jMenuItem);
         for (int i = 0; i < fensterMenuItem.length; i++) fensterMenu[0].add(fensterMenuItem[0]);
 
         //endregion
