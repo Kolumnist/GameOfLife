@@ -68,58 +68,54 @@ public class HardCodingofTheFigures {
 
     public void glider(Cell c)
     {
-        board_cells[c.getX_pos() - 1][c.getY_pos() + 1].switchAlive();
-        board_cells[c.getX_pos()][c.getY_pos() + 1].switchAlive();
-        board_cells[c.getX_pos() + 1][c.getY_pos() + 1].switchAlive();
-        board_cells[c.getX_pos() + 1][c.getY_pos()].switchAlive();
-        board_cells[c.getX_pos() + 1][c.getY_pos() - 1].switchAlive();
+        try{ board_cells[c.getX_pos() - 1][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos() + 1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos() + 1][c.getY_pos() + 1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos() + 1][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos() + 1][c.getY_pos() - 1].switchAlive();}catch(Exception ignored){}
     }
 
     public void lightSpaceship(Cell c)
     {
-        board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();
-        board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()-1].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()-1][c.getY_pos()-1].switchAlive();
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{  board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
     }
 
     public void middleSpaceship(Cell c)
     {
-        board_cells[c.getX_pos()+2][c.getY_pos()].switchAlive();
-        board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();
-        board_cells[c.getX_pos()][c.getY_pos()+3].switchAlive();
-        board_cells[c.getX_pos()-1][c.getY_pos()+3].switchAlive();
-        board_cells[c.getX_pos()-2][c.getY_pos()+3].switchAlive();
-        board_cells[c.getX_pos()-2][c.getY_pos()+2].switchAlive();
-        board_cells[c.getX_pos()-2][c.getY_pos()+1].switchAlive();
-        board_cells[c.getX_pos()-2][c.getY_pos()].switchAlive();
-        board_cells[c.getX_pos()-2][c.getY_pos()-1].switchAlive();
-        board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+3].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
     }
 
     public void heavySpaceship(Cell c){
-        board_cells[c.getX_pos()-2][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()-2].switchAlive();
-        board_cells[c.getX_pos()+3][c.getY_pos()-2].switchAlive();
-
-        board_cells[c.getX_pos()-3][c.getY_pos()-1].switchAlive();
-        board_cells[c.getX_pos()+3][c.getY_pos()-1].switchAlive();
-
-        board_cells[c.getX_pos()+3][c.getY_pos()].switchAlive();
-
-        board_cells[c.getX_pos()-3][c.getY_pos()+1].switchAlive();
-        board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();
-
-        board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();
-        board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();
+        try{ board_cells[c.getX_pos()-2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+1][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+3][c.getY_pos()].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-3][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()+2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()-1][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
+        try{ board_cells[c.getX_pos()][c.getY_pos()+2].switchAlive();}catch(Exception ignored){}
     }
 }

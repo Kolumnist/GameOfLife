@@ -29,24 +29,25 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final Slider slider;
 
     private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.OKTAGON;
+    private Figure figure = Figure.NOTHING;
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
     private JMenu[] menu = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"), new JMenu("Figuren"), new JMenu("Fenster leeren")};
     private JMenu[] fensterMenu = {new JMenu("Farben")};
     private JMenu[] farbenMenu = {new JMenu("tot"), new JMenu("lebendig")};
-    private JMenu[] figurenMenu = {new JMenu("Gleiter"), new JMenu("D"), new JMenu("nochNeSache"), new JMenu("Oktagon"), new JMenu("nommel was"), new JMenu("nochIrWas")};
+    private JMenu[] figurenMenu = {new JMenu("Pentadecathlon"), new JMenu("Oktagon"), new JMenu("Gleiter"),
+            new JMenu("Kleines Raumschiff"), new JMenu("Mittlers Raumschiff"), new JMenu("Schweres Raumschiff")};
     private JMenuItem[]
             modusMenuItem = {new JMenuItem("Laufen"), new JMenuItem("Setzen"), new JMenuItem("Malen")},
             fensterMenuItem = {new JMenuItem("wechseln")},
             fensterLeerenMenuItem = {new JMenuItem("leere")},
-            figurenMenuItem0 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenMenuItem1 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenMenuItem2 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenMenuItem3 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenMenuItem4 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
-            figurenMenuItem5 = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")};
+            figurenItemPentadecathlon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemOktagon = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemGleiter = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemLSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemMSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")},
+            figurenItemHSpaceship = {new JMenuItem("90°"), new JMenuItem("180°"), new JMenuItem("270°"), new JMenuItem("360°")};
 
     class MouseListener extends MouseAdapter implements Serializable {
 
@@ -68,11 +69,12 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 {
                     case NOTHING: c.switchAlive(); break;
                     case PENTADECATHLON: hardFig.pentadecathlon(c); figure = Figure.NOTHING; break;
-                    case OKTAGON: hardFig.oktagon(c); break;
-                    case GLIDER: hardFig.glider(c); break;
-                    case LIGHT_SPACESHIP: hardFig.lightSpaceship(c); break;
-                    case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); break;
-                    case HEAVY_SPACESHIP: hardFig.heavySpaceship(c); break;
+                    case OKTAGON: hardFig.oktagon(c); figure = Figure.NOTHING; break;
+                    case GLIDER: hardFig.glider(c); figure = Figure.NOTHING; break;
+                    case LIGHT_SPACESHIP: hardFig.lightSpaceship(c); figure = Figure.NOTHING; break;
+                    case MIDDLE_SPACESHIP: hardFig.middleSpaceship(c); figure = Figure.NOTHING; break;
+                    case HEAVY_SPACESHIP: hardFig.heavySpaceship(c); figure = Figure.NOTHING; break;
+                    default : figure = Figure.NOTHING; break;
                 }
             }
         }
@@ -121,6 +123,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
         //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
 
+
         //region ActionListener for the different States
         modusMenuItem[0].addActionListener(e -> {
             state = State.RUNNING;
@@ -129,7 +132,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
         //endregion
-
 
         //region ActionListener for the color management and switching
         for (int i = 0; i < 8; i++) {
@@ -192,6 +194,15 @@ public class Gameboard extends JInternalFrame implements Runnable {
         });
         //endregion
 
+        //region ActionListener for the figure management
+        figurenItemPentadecathlon[0].addActionListener(e -> figure = Figure.PENTADECATHLON);
+        figurenItemOktagon[0].addActionListener(e -> figure = Figure.OKTAGON);
+        figurenItemGleiter[0].addActionListener(e -> figure = Figure.GLIDER);
+        figurenItemLSpaceship[0].addActionListener(e -> figure = Figure.LIGHT_SPACESHIP);
+        figurenItemMSpaceship[0].addActionListener(e -> figure = Figure.MIDDLE_SPACESHIP);
+        figurenItemHSpaceship[0].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP);
+        //endregion
+
         setJMenuBar(menuBar);
         for (JMenu jMenu : menu) menuBar.add(jMenu);
         for (JMenuItem jMenuItem : modusMenuItem) menu[0].add(jMenuItem);
@@ -202,12 +213,12 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenu jMenu : figurenMenu) menu[3].add(jMenu);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[0].add(c_p_dead);
         for (int i = 0; i < farbenMenu.length; i++) farbenMenu[1].add(c_p_alive);
-        for (JMenuItem jMenuItem : figurenMenuItem0) figurenMenu[0].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenMenuItem1) figurenMenu[1].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenMenuItem2) figurenMenu[2].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenMenuItem3) figurenMenu[3].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenMenuItem4) figurenMenu[4].add(jMenuItem);
-        for (JMenuItem jMenuItem : figurenMenuItem5) figurenMenu[5].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemPentadecathlon) figurenMenu[0].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemOktagon) figurenMenu[1].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemGleiter) figurenMenu[2].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemLSpaceship) figurenMenu[3].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemMSpaceship) figurenMenu[4].add(jMenuItem);
+        for (JMenuItem jMenuItem : figurenItemHSpaceship) figurenMenu[5].add(jMenuItem);
 
         fensterMenu[0].add(fensterMenuItem[0]);
         menu[4].add(fensterLeerenMenuItem[0]);
@@ -227,7 +238,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
             //System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
-                Thread.sleep(10000 - t_wait);
+                Thread.sleep(2000 - t_wait);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
