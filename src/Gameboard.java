@@ -11,20 +11,19 @@ import java.io.Serializable;
 
 public class Gameboard extends JInternalFrame implements Runnable {
 
-    enum Figure {
+    enum Figure {//All different Figures that can be set into the gameboard:
         NOTHING,
-        OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,
-        GLIDER_DOWN, GLIDER_RIGHT, GLIDER_UP, GLIDER_LEFT,
-        LIGHT_SPACESHIP_DOWN, LIGHT_SPACESHIP_UP,
-        MIDDLE_SPACESHIP_DOWN, MIDDLE_SPACESHIP_UP,
-        HEAVY_SPACESHIP_RIGHT, HEAVY_SPACESHIP_LEFT
+        OKTAGON, PENTADECATHLON_HORIZONTALLY, PENTADECATHLON_VERTICALLY,//Oscillators
+        GLIDER_DOWN, GLIDER_RIGHT, GLIDER_UP, GLIDER_LEFT,//All Glider versions
+        LIGHT_SPACESHIP_DOWN, LIGHT_SPACESHIP_UP, //All Light Spaceship versions
+        MIDDLE_SPACESHIP_DOWN, MIDDLE_SPACESHIP_UP, //All Middle Spaceship versions
+        HEAVY_SPACESHIP_RIGHT, HEAVY_SPACESHIP_LEFT //All Heavy Spaceship versions
     }
 
-    enum State {//The different States the gameboard can be in:
-        RUNNING, SETUP, DRAWING
-        //-> Running state means the gameboard is currently going through its lifecycle
-        //-> Setup state means that with a single mouseclick a cell comes to life or dies
-        //-> Drawing state is like Setup but with the mouse only entering a cell
+    enum State {//All different States the gameboard can be in:
+        RUNNING, //-> the gameboard is currently going through its lifecycle
+        SETUP, //-> With a single mouseclick a cell comes to life or dies
+        DRAWING //-> When the mouse is entering that cells come to life or dies
     }
 
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
@@ -36,8 +35,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
     private final ColorPanelDead c_p_dead;
     private final Slider slider;
 
-    private State state = State.SETUP; //This displays the current state of the gameboard
-    private Figure figure = Figure.NOTHING;
+    private State state = State.SETUP; //This saves the current state of the gameboard
+    private Figure figure = Figure.NOTHING;//This saves the current figure selected
     private static int title_nr;
 
     private JMenuBar menuBar = new JMenuBar();
@@ -73,6 +72,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         public void mouseReleased(MouseEvent e) {
             if (state == State.SETUP) {
                 Cell c = (Cell) e.getComponent();
+
+                //switch case checks for the current figure
                 switch(figure)
                 {
                     case NOTHING: c.switchAlive(); break;
@@ -100,6 +101,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         }
     }
 
+    /*Just a tiny method to make a part of the code smaller -> changes the color*/
     private void littleHelper(Color new_color, boolean alive) {
         if (!alive) {
             for (Cell[] board_cell : board_cells) {
@@ -118,7 +120,6 @@ public class Gameboard extends JInternalFrame implements Runnable {
 
     public Gameboard(int width, int height) {
         super("Alive " + title_nr, true, true, true, true);
-        //is the width and height of the gameboard(in cells)
 
         board_cells = new Cell[width][height];
         c_p_alive = new ColorPanelAlive(this);
@@ -129,7 +130,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         setSize(640, 640);
         setLocation(50, 50);
 
-        /*board_cells get created for real with mouselistener*/
+        /*board_cells get created for real with mouseListener*/
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 board_cells[i][j] = new Cell(false, i, j, c_p_alive.colors[0], c_p_dead.colors[4]);
@@ -141,8 +142,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         hardFig = new HardCodingofTheFigures(board_cells);
         slider = new Slider(this);
 
-        //region MOTHERFLIPPING GOD OF A MOTHER MAN IS THAT ANNOYING
-
+        //region A LOT of ActionListeners for the GuI and other GuI stuff
 
         //region ActionListener for the different States
         modusMenuItem[0].addActionListener(e -> {
@@ -235,6 +235,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         figurenItemHSpaceship[1].addActionListener(e -> figure = Figure.HEAVY_SPACESHIP_LEFT);
         //endregion
 
+        //region Adding all menu stuff to the menuBar
         setJMenuBar(menuBar);
         for (JMenu jMenu : menu) menuBar.add(jMenu);
         for (JMenuItem jMenuItem : modusMenuItem) menu[0].add(jMenuItem);
@@ -251,12 +252,12 @@ public class Gameboard extends JInternalFrame implements Runnable {
         for (JMenuItem jMenuItem : figurenItemLSpaceship) figurenMenu[3].add(jMenuItem);
         for (JMenuItem jMenuItem : figurenItemMSpaceship) figurenMenu[4].add(jMenuItem);
         for (JMenuItem jMenuItem : figurenItemHSpaceship) figurenMenu[5].add(jMenuItem);
-
         fensterMenu[0].add(fensterMenuItem[0]);
         menu[4].add(fensterLeerenMenuItem[0]);
-
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(menu[4]);
+        //endregion
+
         //endregion
 
         title_nr++;

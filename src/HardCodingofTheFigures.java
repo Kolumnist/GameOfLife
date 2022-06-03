@@ -12,6 +12,11 @@ public class HardCodingofTheFigures {
         this.board_cells = board_cells.clone();
     }
 
+    /*This Class mainly handles the positions of the cells that should be alive for the figures
+    * Our Idea was to make it the Hardcoding way which is why I don't have to say much more to it!
+    */
+
+    //region WARNING this code may disturb you and your eyes will most definitely bleed!
     public void oktagon(Cell c)
     {
         try{ board_cells[c.getX_pos()+4][c.getY_pos()-1].switchAlive();}catch(Exception ignored){}
@@ -253,4 +258,5 @@ public class HardCodingofTheFigures {
         try{ board_cells[c.getX_pos()-2][c.getY_pos()+1].switchAlive();}catch(Exception ignored){}
         try{ board_cells[c.getX_pos()][c.getY_pos()-2].switchAlive();}catch(Exception ignored){}
     }
+    //endregion
 }
