@@ -10,21 +10,21 @@ import java.awt.*;
 
 public class ColorPanelDead extends JPanel {
 
-    private Gameboard gameboard;
-
+    // create an button array and save buttons in there (for the later color buttons)
     JButton[] colorButtons = {new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton("")};
 
+    // create an color array and save Colors in there
     Color[] colors = {Color.blue, Color.cyan,
             Color.green, Color.magenta, Color.orange,
             Color.pink, Color.red, Color.yellow};
 
 
-    ColorPanelDead(Gameboard gameboard) {
-        this.gameboard = gameboard;
+    ColorPanelDead() {
         for (int i = 0; i < colorButtons.length; i++) {
             this.colorButtons[i] = colorButtons[i];
+            // call the class RoundButton so that every button in the buttonarray gets round
             colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
@@ -32,6 +32,7 @@ public class ColorPanelDead extends JPanel {
             setBackground(Color.white);
             setVisible(true);
         }
+        // set all the buttons in the color of the selected color array
         colorButtons[0].setBackground(colors[0]);
         colorButtons[1].setBackground(colors[1]);
         colorButtons[2].setBackground(colors[2]);

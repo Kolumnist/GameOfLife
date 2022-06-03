@@ -9,8 +9,7 @@ import java.awt.*;
 
 public class ColorPanelAlive extends JPanel {
 
- private Gameboard gameboard;
-
+    // create rgb colors
     Color midnightblue = new Color(25,25,112);
     Color aquamarine = new Color(127,255,212);
     Color salmon = new Color(250,140,105);
@@ -20,17 +19,21 @@ public class ColorPanelAlive extends JPanel {
     Color orchid = new Color(218,112,214);
     Color darkgoldenrod = new Color(139,101,8);
 
+    // create an button array and save buttons in there (for the later color buttons)
     JButton[] colorButtons = {new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton(""),
             new JButton(""), new JButton(""), new JButton("")};
 
+    // create array and save the rgb colors in there
     Color[] colors = {darkgoldenrod, orchid,
             darkolivegreen2, midnightblue, aquamarine,
             darkred, darkslategray, salmon};
-    ColorPanelAlive(Gameboard gameboard) {
-        this.gameboard = gameboard;
+
+
+    ColorPanelAlive() {
         for (int i = 0; i < colorButtons.length; i++) {
             this.colorButtons[i] = colorButtons[i];
+            // call the class RoundButton so that every button in the buttonarray gets round
             colorButtons[i] = new RoundButton("", 360, true);
             colorButtons[i].setVisible(true);
             add(colorButtons[i]);
@@ -38,6 +41,7 @@ public class ColorPanelAlive extends JPanel {
             setBackground(Color.white);
             setVisible(true);
         }
+        // set all the buttons in the color of the selected color array
         colorButtons[0].setBackground(colors[0]);
         colorButtons[1].setBackground(colors[1]);
         colorButtons[2].setBackground(colors[2]);
@@ -47,51 +51,6 @@ public class ColorPanelAlive extends JPanel {
         colorButtons[6].setBackground(colors[6]);
         colorButtons[7].setBackground(colors[7]);
     }
-/*
-    class MyDeadColors implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals(colorButtons[0])) {
-                gameboard.changeColors(Color.blue);
-            } else if (e.getActionCommand().equals(colorButtons[1])) {
-                gameboard.changeColors(Color.cyan);
-            } else if (e.getActionCommand().equals(colorButtons[2])) {
-                gameboard.changeColors(Color.green);
-            } else if (e.getActionCommand().equals(colorButtons[3])) {
-                gameboard.changeColors(Color.magenta);
-            } else if (e.getActionCommand().equals(colorButtons[4])) {
-                gameboard.changeColors(Color.orange);
-            } else if (e.getActionCommand().equals(colorButtons[5])) {
-                gameboard.changeColors(Color.pink);
-            } else if (e.getActionCommand().equals(colorButtons[6])) {
-                gameboard.changeColors(Color.red);
-            } else if (e.getActionCommand().equals(colorButtons[7])) {
-                gameboard.changeColors(Color.yellow);
-            }
-        }
-    }
-
-    class MyAliveColors implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals(colorButtons[0])) {
-                gameboard.changeColors(Color.blue);
-            } else if (e.getActionCommand().equals(colorButtons[1])) {
-                gameboard.changeColors(Color.cyan);
-            } else if (e.getActionCommand().equals(colorButtons[2])) {
-                gameboard.changeColors(Color.green);
-            } else if (e.getActionCommand().equals(colorButtons[3])) {
-                gameboard.changeColors(Color.magenta);
-            } else if (e.getActionCommand().equals(colorButtons[4])) {
-                gameboard.changeColors(Color.orange);
-            } else if (e.getActionCommand().equals(colorButtons[5])) {
-                gameboard.changeColors(Color.pink);
-            } else if (e.getActionCommand().equals(colorButtons[6])) {
-                gameboard.changeColors(Color.red);
-            } else if (e.getActionCommand().equals(colorButtons[7])) {
-                gameboard.changeColors(Color.yellow);
-            }
-        }
-    }*/
 }
 
 

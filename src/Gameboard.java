@@ -122,8 +122,8 @@ public class Gameboard extends JInternalFrame implements Runnable {
         super("Alive " + title_nr, true, true, true, true);
 
         board_cells = new Cell[width][height];
-        c_p_alive = new ColorPanelAlive(this);
-        c_p_dead = new ColorPanelDead(this);
+        c_p_alive = new ColorPanelAlive();
+        c_p_dead = new ColorPanelDead();
 
         setLayout(new GridLayout(width, height, 1, 1));
         setBackground(Color.white);
