@@ -3,29 +3,34 @@
  * @Matrikelnummer: 212455 [mjouaux], 212848 [choss], 212467 [lmangi]
  * @version 1 02.06.2022
  */
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GameMenu extends JPanel {
 
     private static JDesktopPane myDesktop;
-    private static JComboBox gridList;
+    private static JComboBox gridList;   // this gridList will be used for selecting a specific gameboard
     static JFrame myFrame = new JFrame();
-    static JButton drückMich = new JButton("Create new board!");
+    static JButton drückMich = new JButton("Create new board!"); // this button will be used for creating gameboards
     private Gameboard gameboard;
 
     public GameMenu() {
+        // create the "drückMich" button
         drückMich.setSize(200, 50);
         drückMich.setFont(new Font("Arial", Font.BOLD, 18));
         drückMich.setBackground(Color.BLUE);
         drückMich.setForeground(Color.white);
         drückMich.setLocation(650, 475);
         drückMich.setVisible(true);
+        // create the gridList
         gridList = new JComboBox(new String[]{"8x8", "16x16", "32x32", "64x64", "128x128 WARNUNG! Schlecht für den PC!"});
         gridList.setSelectedIndex(2);
         gridList.setVisible(true);
         gridList.setSize(250, 20);
         gridList.setLocation(625, 525);
+        // by clicking on the "drückMich" button the system will look which String in the gridList get selected
+        // and then opened a gameboard with the selected width and height
         drückMich.addActionListener(e -> {
             switch (gridList.getSelectedIndex()) {
                 case 0:
@@ -54,6 +59,7 @@ public class GameMenu extends JPanel {
         });
     }
 
+    // calls the GameMenu constructor and  create a Frame with the title "Game of Life"
     public static void main(String[] args) {
         new GameMenu();
         myDesktop = new JDesktopPane();
