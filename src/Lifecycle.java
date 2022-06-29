@@ -89,7 +89,6 @@ public class Lifecycle {
 
     public void nextCycle() {
         copyCellsIntoGrid();
-
         //region Putting living cells, which are at the bounds of the gameboard, out of the bound of the gameboard
         for (int i = 2; i < gridColumnNumber; i++) {
             if (gameGrid[2][i].getAlive() == true) {

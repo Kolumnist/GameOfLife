@@ -27,6 +27,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     }
 
     public Cell[][] board_cells; //The Gameboard is made out of these Cell
+    public int stop = 0;
     public int t_wait = 1500; //the t_wait = thread_wait is used for the speed of the lifecycle
 
     private final Lifecycle life;
@@ -147,7 +148,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
         //region ActionListener for the different States
         modusMenuItem[0].addActionListener(e -> {
             state = State.RUNNING;
-            new Thread(this).start();
+            if(stop <= 1) new Thread(this).start();
         });
         modusMenuItem[1].addActionListener(e -> state = State.SETUP);
         modusMenuItem[2].addActionListener(e -> state = State.DRAWING);
@@ -268,6 +269,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
     /*Calls nextCycle from the responsible lifeCycle object and handles the speed via Thread.sleep*/
     public void run() {
         while (state == State.RUNNING) {
+            stop++;
             //System.out.println("Hallo ich funktioniere!");
             life.nextCycle();
             try {
@@ -276,6 +278,7 @@ public class Gameboard extends JInternalFrame implements Runnable {
                 e.printStackTrace();
             }
         }
+        stop = 0;
     }
 
 }
